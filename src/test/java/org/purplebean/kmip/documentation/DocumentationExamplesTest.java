@@ -14,14 +14,22 @@ import org.purplebean.kmip.api.KmipContext;
 import org.purplebean.kmip.api.KmipInitializer;
 import org.purplebean.kmip.api.KmipSpec;
 import org.purplebean.kmip.codec.KmipCodecManager;
+import org.purplebean.kmip.model.core.enumeration.ObjectType;
+import org.purplebean.kmip.model.core.enumeration.Operation;
 import org.purplebean.kmip.model.core.enumeration.State;
 import org.purplebean.kmip.model.core.structure.Attribute;
 import org.purplebean.kmip.model.core.structure.ProtocolVersion;
 import org.purplebean.kmip.model.core.type.ActivationDate;
 import org.purplebean.kmip.model.core.type.AttributeIndex;
+import org.purplebean.kmip.model.core.type.BatchCount;
+import org.purplebean.kmip.model.v2x1.structure.Attributes;
+import org.purplebean.kmip.model.v2x1.structure.request.RequestBatchItem;
+import org.purplebean.kmip.model.v2x1.structure.request.RequestHeader;
+import org.purplebean.kmip.model.v2x1.structure.request.RequestMessage;
+import org.purplebean.kmip.model.v2x1.structure.request.payload.CreateOpRequestPayload;
 
 /**
- * Executes the code samples shown in {@code README.md} and {@code docs/examples.md}, so the
+ * Executes the code samples shown in {@code README.md} and {@code docs/guides/examples.md}, so the
  * documentation fails the build when the API drifts. Keep this class in sync with those files.
  */
 class DocumentationExamplesTest {
@@ -114,5 +122,46 @@ class DocumentationExamplesTest {
     assertThatThrownBy(() -> ActivationDate.of(OffsetDateTime.now()))
         .isInstanceOf(IllegalArgumentException.class)
         .hasMessageContaining("Unsupported object type for V1.0");
+  }
+
+  @Test
+  void createRequestMessageForKmip21() throws Exception {
+    KmipContext.setSpec(KmipSpec.V2_1);
+
+    CreateOpRequestPayload payload = CreateOpRequestPayload.builder()
+        .objectType(ObjectType.Standard.SYMMETRIC_KEY.inst())
+        .attributes(Attributes.builder().build())
+        .build();
+    RequestBatchItem item = RequestBatchItem.builder()
+        .operation(Operation.Standard.CREATE.inst())
+        .requestPayloadStructure(payload)
+        .build();
+    RequestHeader header = RequestHeader.builder()
+        .protocolVersion(ProtocolVersion.of(2, 1))
+        .batchCount(BatchCount.of(1))
+        .build();
+    RequestMessage message = RequestMessage.builder()
+        .requestHeader(header)
+        .requestBatchItem(item)
+        .requestBatchItemError(new Exception("placeholder"))
+        .build();
+
+    var json = KmipCodecManager.createJsonMapper();
+    String jsonText = json.writeValueAsString(message);
+    assertThat(jsonText).contains("\"tag\":\"Operation\",\"type\":\"Enumeration\","
+        + "\"value\":\"Create\"");
+    RequestMessage fromJson = json.readValue(jsonText, RequestMessage.class);
+    assertThat(json.writeValueAsString(fromJson)).isEqualTo(jsonText);
+
+    var xml = KmipCodecManager.createXmlMapper();
+    String xmlText = xml.writeValueAsString(message);
+    assertThat(xmlText).startsWith("<RequestMessage><RequestHeader>");
+    assertThat(xml.writeValueAsString(xml.readValue(xmlText, RequestMessage.class)))
+        .isEqualTo(xmlText);
+
+    var ttlv = KmipCodecManager.createTtlvMapper();
+    byte[] bytes = ttlv.writeValueAsBytes(message);
+    assertThat(ttlv.writeValueAsBytes(ttlv.readValue(bytes, RequestMessage.class)))
+        .isEqualTo(bytes);
   }
 }

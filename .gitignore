@@ -12,7 +12,8 @@ target/
 *.iml
 *.ipr
 tmp/
-docs/
+.DS_Store
+docs/kmip-spec/v3.x/kmip-testcases/
 
 ### Eclipse ###
 .apt_generated

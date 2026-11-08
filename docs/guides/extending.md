@@ -39,6 +39,10 @@ Run it from the repository root. `DRY_RUN=true` prints what would be written. Th
 the model class, six codec classes, four test classes, a benchmark subject, and appends to every
 SPI file.
 
+> Generated code is not Google-style and fails checkstyle (a fresh enum produced 419 violations).
+> Iterate with `-Dcheckstyle.skip`, then reformat before committing. A worked run-through is in
+> [First contribution](first-contribution.md).
+
 ## 3. Fill in the stub
 
 The generator needs a tag to exist. If `KmipTag.Standard.<NAME>` is missing, add it (tag value and

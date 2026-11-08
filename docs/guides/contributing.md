@@ -16,7 +16,8 @@ git checkout -b feature/<short-name> develop
 mvn test                       # must pass, checkstyle included
 ```
 
-1. Add or change code. New KMIP types: use the generator ([Extending](extending.md)).
+1. Add or change code. New KMIP types: use the generator ([Extending](extending.md); first time?
+   follow [First contribution](first-contribution.md)). Reformat generated code to pass checkstyle.
 2. Add or update tests with real values ([Testing](testing.md)).
 3. Update docs if behavior or an example changed, including
    `documentation/DocumentationExamplesTest` when a doc sample changes.
@@ -44,4 +45,4 @@ history: `test(checkstyle): fix import ordering across test sources`,
 Bug reports: library version, KMIP spec version, minimal code, expected vs actual. Feature
 requests: the spec section the change implements.
 
-Participation is governed by the [Code of Conduct](../CODE_OF_CONDUCT.md).
+Participation is governed by the [Code of Conduct](../../CODE_OF_CONDUCT.md).

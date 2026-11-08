@@ -67,9 +67,9 @@ instance --> <Type><Format>Serializer --> tag, type name, value (children via ge
 
 `RequestMessageStructure`, `RequestHeaderStructure`, `RequestBatchItemStructure` and
 `RequestPayloadStructure` (and the `Response` mirror) are interfaces. Payload implementations
-register against `(spec, Operation)`. Generic `Simple*` implementations exist for
-`UnknownVersion`. Operation payloads exist for the KMIP 1.2, 2.1 and 3.0 operations. Known gap: the Query response
+register against `(spec, Operation)`. Versioned implementations exist for 1.2, 2.1 and 3.0
+(see [Messages](messages.md)); generic `Simple*` ones exist for `UnknownVersion`. Operation payloads exist for the KMIP 1.2, 2.1 and 3.0 operations. Known gap: the Query response
 does not yet carry the capability/profile/validation structures. Open work is tracked in
 `_bmad-output/planning-artifacts/epics.md`; the generated
-[pending-implementation report](kmip-pending-implementation.md) can lag behind, so regenerate it
+[pending-implementation report](../kmip-pending-implementation.md) can lag behind, so regenerate it
 before trusting it.

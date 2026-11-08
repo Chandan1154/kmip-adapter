@@ -11,7 +11,7 @@ attributes, structures, operation payloads) with TTLV, JSON and XML codecs. Cove
 > payloads for KMIP 1.2, 2.1 and 3.0 are implemented; the message layer is generic
 > (`Simple*`) and the Query response lacks capability structures. Open work:
 > `_bmad-output/planning-artifacts/epics.md`; regenerate coverage via
-> [Tooling](docs/tooling.md#spec-coverage-reports).
+> [Tooling](docs/guides/tooling.md#spec-coverage-reports).
 
 ## Install
 
@@ -54,25 +54,29 @@ try {
 ```
 
 Step 1 matters: types register themselves in static initializers using the *current* spec, so a
-spec set too early makes class loading fail. See [Versioning](docs/versioning.md).
+spec set too early makes class loading fail. See [Versioning](docs/guides/versioning.md).
 
-More samples (XML, TTLV, enums, attributes): [docs/examples.md](docs/examples.md). Every sample is
+More samples (XML, TTLV, enums, attributes): [examples](docs/guides/examples.md). Every sample is
 executed by `DocumentationExamplesTest`.
 
 ## Documentation
 
 | Doc | Read it for |
 |---|---|
-| [Getting started](docs/getting-started.md) | Requirements, build, first round trip |
-| [Concepts](docs/concepts.md) | `KmipDataType`, structures, enumerations, attributes, registries |
-| [Versioning](docs/versioning.md) | `KmipSpec`, `KmipContext`, `supportedVersions`, init order |
-| [Serialization](docs/serialization.md) | JSON / XML / TTLV shapes and mappers |
-| [Examples](docs/examples.md) | Verified, copy-pasteable samples |
-| [Architecture](docs/architecture.md) | Package layout, SPI wiring, request/response API |
-| [Extending](docs/extending.md) | Adding enums, data types, structures with the generator |
-| [Testing](docs/testing.md) | Test suites, coverage, benchmarks |
-| [Tooling](docs/tooling.md) | Make/Task/just, scripts, spec scrapers, Claude agents |
-| [Contributing](docs/contributing.md) | Rules, branches, commits, checks |
+| [Getting started](docs/guides/getting-started.md) | Requirements, build, first round trip |
+| [Concepts](docs/guides/concepts.md) | `KmipDataType`, structures, enumerations, attributes, registries |
+| [Versioning](docs/guides/versioning.md) | `KmipSpec`, `KmipContext`, `supportedVersions`, init order |
+| [Serialization](docs/guides/serialization.md) | JSON / XML / TTLV shapes and mappers |
+| [Examples](docs/guides/examples.md) | Verified, copy-pasteable samples |
+| [Messages](docs/guides/messages.md) | Build a Create request, read it back, known quirks |
+| [Troubleshooting](docs/guides/troubleshooting.md) · [Glossary](docs/guides/glossary.md) | Common errors; KMIP terms |
+| [First contribution](docs/guides/first-contribution.md) | Worked tutorial: add an enum |
+| [Roadmap](docs/roadmap.md) | Open work per KMIP version |
+| [Architecture](docs/guides/architecture.md) | Package layout, SPI wiring, request/response API |
+| [Extending](docs/guides/extending.md) | Adding enums, data types, structures with the generator |
+| [Testing](docs/guides/testing.md) | Test suites, coverage, benchmarks |
+| [Tooling](docs/guides/tooling.md) | Make/Task/just, scripts, spec scrapers, Claude agents |
+| [Contributing](docs/guides/contributing.md) | Rules, branches, commits, checks |
 
 ## Build and test
 
@@ -83,8 +87,8 @@ mvn -Pcoverage-strict verify   # JaCoCo gate: 60% line, 50% branch
 mvn -Pperf verify              # JMH benchmarks
 ```
 
-`make`, `task` and `just` wrap the same commands; see [Tooling](docs/tooling.md).
+`make`, `task` and `just` wrap the same commands; see [Tooling](docs/guides/tooling.md).
 
 ## License
 
-LGPL v3, see [LICENSE](LICENSE). Contribution rules: [docs/contributing.md](docs/contributing.md).
+LGPL v3, see [LICENSE](LICENSE). Contribution rules: [contributing guide](docs/guides/contributing.md).

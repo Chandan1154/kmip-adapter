@@ -76,4 +76,4 @@ where it is valid (for example `ActivationDate` is tagged 1.2, 1.3, 1.4, 2.0, 2.
 `RequestMessageStructure` / `ResponseMessageStructure` (and header, batch item, payload) are
 interfaces with per-spec registries. The bundled `SimpleRequestMessage`/`SimpleResponseMessage`
 families are generic implementations registered for `UnknownVersion` only; `SimpleRequestHeader`
-rejects other specs. Treat them as scaffolding, not a finished protocol layer.
+rejects other specs. Treat them as scaffolding and use the versioned classes ([Messages](messages.md)).

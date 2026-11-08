@@ -1,27 +1,35 @@
 # Documentation
 
-Start with the [root README](../README.md), then:
+Start with the [root README](../README.md).
+
+## Guides (`guides/`, hand-written)
 
 **Using the library**
-1. [Getting started](getting-started.md)
-2. [Concepts](concepts.md)
-3. [Versioning](versioning.md) (read before writing any code that sets a spec)
-4. [Serialization](serialization.md)
-5. [Examples](examples.md)
+1. [Getting started](guides/getting-started.md)
+2. [Concepts](guides/concepts.md)
+3. [Versioning](guides/versioning.md): read before writing code that sets a spec
+4. [Serialization](guides/serialization.md)
+5. [Examples](guides/examples.md)
+6. [Building request and response messages](guides/messages.md)
+7. [Troubleshooting](guides/troubleshooting.md) and [Glossary](guides/glossary.md)
 
-**Working on the library**
-- [Architecture](architecture.md)
-- [Extending](extending.md): add enums, data types, structures
-- [Testing](testing.md)
-- [Tooling](tooling.md)
-- [Contributing](contributing.md)
+**Contributing**
+1. [Contributing](guides/contributing.md): rules, workflow, commits
+2. [Your first contribution](guides/first-contribution.md): worked tutorial
+3. [Architecture](guides/architecture.md)
+4. [Extending](guides/extending.md): enums, data types, structures
+5. [Testing](guides/testing.md) and [Tooling](guides/tooling.md)
+6. [Roadmap](roadmap.md): what is still open
 
-**Generated reference (do not edit by hand)**
-- [`kmip-pending-implementation.md`](kmip-pending-implementation.md): spec-vs-code gap report
-- [`kmip-coverage/`](kmip-coverage/README.md): per-version list of implemented model classes
-- `kmip-spec/`: scraped OASIS spec data, per-entity `chunks/`, test-case HTML
-- `kmip-implementation-inventory.json`: machine-readable inventory
+## Generated reference (regenerate, do not hand-edit)
 
-Code samples in these docs are executed by
-`src/test/java/org/purplebean/kmip/documentation/DocumentationExamplesTest.java`. If you change
-an example, change the test in the same commit.
+| Path | Produced by |
+|---|---|
+| `kmip-pending-implementation.md` | `kmip-spec/scrape_kmip_all_versions.py` |
+| `kmip-implementation-inventory.json` | inventory tooling |
+| `kmip-coverage/` | `scripts/kmip-coverage-report.py` |
+| `kmip-spec/` | scraped OASIS spec data, `chunks/`, test-case HTML (scrapers live here and are referenced by scripts and skills, so they are not moved) |
+
+Code samples in the guides are executed by
+`src/test/java/org/purplebean/kmip/documentation/DocumentationExamplesTest.java`. Change an example
+and its test in the same commit.
