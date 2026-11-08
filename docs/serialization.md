@@ -56,8 +56,7 @@ T back = ttlv.readValue(bytes, T.class);               // byte[] or ByteBuffer
 ```
 
 `TtlvObject.fromBuffer(buffer)` parses raw TTLV into a tree; `getStructuredByteString()` prints
-it indented (used by `Main`). Unrecognized vendor tags inside a message extension are handled by
-`TtlvDataType`.
+it indented (used by `Main`). Registered custom (vendor) tags are carried as generic `TtlvDataType` values.
 
 ## Convenience API
 

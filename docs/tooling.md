@@ -9,8 +9,8 @@
 | `tests` / `test-unit` | `mvn -q test` |
 | `test-class TEST=Name` | `mvn test -Dtest=Name` |
 | `coverage` | `mvn -DskipTests jacoco:report` |
-| `perf`, `perf-fast` | `mvn -DskipTests verify -P perf[-fast]` with `-Dbench.*` |
-| `perf-runner` | JMH via `JmhBenchmarkRunner` |
+| `perf`, `perf-fast` | `mvn -DskipTests verify -P perf[-fast]`; the `-Dbench.threads/wi/mi/...` flags these targets pass are read only by `JmhBenchmarkRunner`, not the profiles (use `-Dbench.args`) |
+| `perf-runner` | JMH via `JmhBenchmarkRunner` (honors `-Dbench.*`) |
 | `build`, `clean`, `install`, `format` | Maven equivalents |
 | `ci-*` (`ci-all`, `ci-all-fast`) | Clean, build, tests, perf, coverage, package artifacts |
 

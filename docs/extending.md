@@ -1,7 +1,7 @@
 # Extending the library
 
 Add new spec types with the generator, then fill in what it cannot know. Do not hand-write the
-boilerplate: a type touches about 15 files and 8 SPI lines.
+boilerplate: a type touches 12 files (model, 6 codec classes, 4 tests, benchmark subject) and 8 SPI lines.
 
 ## 1. Find out what is missing
 

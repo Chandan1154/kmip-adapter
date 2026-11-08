@@ -1,7 +1,7 @@
 # Testing
 
-JUnit 5 + AssertJ. `mvn test` runs everything except tests tagged `integration`; add
-`-Pwith-integration` to include them.
+JUnit 5 + AssertJ. `mvn test` runs the whole suite. `-Pwith-integration` clears surefire's
+`excludedGroups`, so tests tagged `integration` (if any) are included.
 
 ## Layout (`src/test/java/org/purplebean/kmip/`)
 
@@ -44,9 +44,10 @@ mvn -Pperf verify          # full JMH run
 mvn -Pperf-fast verify     # short run
 ```
 
-Results: `target/jmh-results.json` plus a generated Markdown report. `make perf`, `task perf` and
-`just perf` pass thread/iteration properties (`-Dbench.threads`, `-Dbench.wi`, `-Dbench.mi`,
-`-Dbench.wt.ms`, `-Dbench.mt.ms`).
+Profiles take JMH arguments through `-Dbench.args="-wi 3 -i 5 -f 1"`. The in-process
+`JmhBenchmarkRunner` (`make perf-runner`) is configured with `-Dbench.include`, `bench.threads`,
+`bench.wi`, `bench.mi`, `bench.forks`, `bench.result` (default `target/jmh-results.json`) and
+`bench.report` (default `target/jmh-report.md`).
 
 ## Conventions
 
