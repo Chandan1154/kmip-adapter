@@ -54,5 +54,5 @@ Optional automation, described in [`.claude/README.md`](../../.claude/README.md)
 (`kmip-spec-analyst`, `kmip-pm`, `kmip-architect`, `kmip-type-developer`, `kmip-test-engineer`,
 `kmip-codec-registrar`) and skills (`kmip-add-enum`, `kmip-add-structure`, `kmip-add-operation`,
 `kmip-scrape-spec`, `kmip-chunk-spec`, `kmip-implementation-status`, `kmip-version-audit`,
-`kmip-fix-tc-failures`, plus the `bmad-*` workflow skills). They wrap the scripts above; nothing
+`kmip-fix-tc-failures`, `bmad-generate-kmip-code`). They wrap the scripts above; nothing
 in the build depends on them.
