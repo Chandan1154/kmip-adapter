@@ -1,17 +1,17 @@
-package org.purpleBean.kmip.codec.{{format}}.{{pdot}};
+package org.purplebean.kmip.codec.{{format}}.{{pdot}};
 
 import org.junit.jupiter.api.DisplayName;
-import org.purpleBean.kmip.*;
-import org.purpleBean.kmip.api.*;
-import org.purpleBean.kmip.model.core.enumeration.*;
-import org.purpleBean.kmip.model.core.structure.*;
-import org.purpleBean.kmip.model.core.type.*;
+import org.purplebean.kmip.*;
+import org.purplebean.kmip.api.*;
+import org.purplebean.kmip.model.core.enumeration.*;
+import org.purplebean.kmip.model.core.structure.*;
+import org.purplebean.kmip.model.core.type.*;
 import java.math.BigInteger;
 import java.nio.ByteBuffer;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
-import org.purpleBean.kmip.{{pdot}}.{{NAME}};
-import org.purpleBean.kmip.test.suite.Abstract{{format_pascal}}SerializationTestSuite;
+import org.purplebean.kmip.{{pdot}}.{{NAME}};
+import org.purplebean.kmip.test.suite.Abstract{{format_pascal}}SerializationTestSuite;
 
 @DisplayName("{{NAME}} {{format_pascal}} Serialization Tests")
 class {{suite_name}} extends Abstract{{format_pascal}}SerializationTestSuite<{{NAME}}> {

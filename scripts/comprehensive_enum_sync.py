@@ -4,7 +4,7 @@ Comprehensive script to update KMIP enum files with proper version management, s
 
 python3 scripts/comprehensive_enum_sync.py  \
     --csv docs/kmip-spec/v3.x/sections/kmip-spec-enumerations-v3.0-os_enumerations.csv \
-    --enum-dir src/main/java/org/purpleBean/kmip/common/enumeration \
+    --enum-dir src/main/java/org/purplebean/kmip/common/enumeration \
     --write
 """
 
@@ -37,7 +37,7 @@ IGNORE_CATEGORIES = {
 
 # Special file mappings for non-enum files with their full paths
 SPECIAL_FILE_PATHS = {
-    "Tag": "src/main/java/org/purpleBean/kmip/KmipTag.java"
+    "Tag": "src/main/java/org/purplebean/kmip/KmipTag.java"
 }
 
 # Special file mappings for non-enum files (for backward compatibility)
@@ -148,7 +148,7 @@ def get_java_file_path(file_stem: str, root: Path, enum_dir: Path) -> Optional[P
         return java_file
 
     # Finally check the kmip directory
-    kmip_dir = root / "src/main/java/org/purpleBean/kmip"
+    kmip_dir = root / "src/main/java/org/purplebean/kmip"
     java_file = kmip_dir / f"{file_stem}.java"
     return java_file if java_file.exists() else None
 
@@ -741,7 +741,7 @@ def main():
     parser.add_argument(
         "--enum-dir",
         type=str,
-        help="Directory containing enum Java files (default: src/main/java/org/purpleBean/kmip/common/enumeration)"
+        help="Directory containing enum Java files (default: src/main/java/org/purplebean/kmip/common/enumeration)"
     )
 
     args = parser.parse_args()
@@ -763,7 +763,7 @@ def main():
         return 1
 
     # Set up paths
-    enum_dir = Path(args.enum_dir) if args.enum_dir else root / "src/main/java/org/purpleBean/kmip/common/enumeration"
+    enum_dir = Path(args.enum_dir) if args.enum_dir else root / "src/main/java/org/purplebean/kmip/common/enumeration"
 
     if not enum_dir.exists() or not any(enum_dir.iterdir()):
         print(f"Error: Enum directory not found or empty: {enum_dir}", file=sys.stderr)

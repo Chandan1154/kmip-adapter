@@ -1,5 +1,5 @@
 # generated: 2026-07-03
-# last_updated: 2026-07-05
+# last_updated: 2026-11-08
 # project: kmip-adapter
 # project_key: NOKEY
 # tracking_system: file-system
@@ -42,53 +42,34 @@
 # - Story implementation will follow a generate-implement-test cycle using the bmad-generate-kmip-code skill.
 
 generated: 2026-07-03
-last_updated: 2026-07-05
+last_updated: 2026-11-08
 project: kmip-adapter
 project_key: NOKEY
 tracking_system: file-system
 story_location: _bmad-output/implementation-artifacts
 
 development_status:
-  # ── Epic 1: Auth, Attribute & Session Operations ──────────────────────────
-  epic-1: in-progress
-  1-1-gen-impl-test-newattribute-and-currentattribute-structures: in-progress
-  1-2-gen-impl-test-ticket-structure: in-progress
-  1-3-gen-impl-test-setattribute-and-adjustattribute-payloads: in-progress
-  1-4-gen-impl-test-login-logout-and-delegatedlogin-payloads: in-progress
-  epic-1-retrospective: optional
+  # Epics 1-4 (original 28 stories) verified DONE against src/main on 2026-11-08 and removed.
+  # Only remaining work is listed, grouped by KMIP version. See planning-artifacts/epics.md.
 
-  # ── Epic 2: Constraint, Key Material & Async Operations ───────────────────
-  epic-2: in-progress
-  2-1-gen-impl-test-constraints-structure: ready-for-dev
-  2-2-gen-impl-test-getconstraints-and-setconstraints-payloads: ready-for-dev
-  2-3-gen-impl-test-defaultsinformation-and-objectdefaults-structures: ready-for-dev
-  2-4-gen-impl-test-setdefaults-payload: ready-for-dev
-  2-5-gen-impl-test-asynchronouscorrelationvalue-type: ready-for-dev
-  2-6-gen-impl-test-queryasyncrequests-and-poll-payloads: ready-for-dev
-  2-7-gen-impl-test-pkcs11interface-structure: ready-for-dev
-  2-8-gen-impl-test-pkcs11-payloads: ready-for-dev
-  2-9-audit-managedobject-hierarchy-and-gen-impl-test-keywrappingdata-structure: ready-for-dev
-  2-10-gen-impl-test-import-and-export-payloads: ready-for-dev
-  2-11-clarify-and-gen-impl-test-process-payloads: ready-for-dev
-  epic-2-retrospective: optional
+  # ── KMIP 1.2 ──────────────────────────────────────────────────────────────
+  epic-10: in-progress
+  10-1-keep-1-2-round-trip-regression-green: backlog
+  epic-10-retrospective: optional
 
-  # ── Epic 3: v3.0 Identity & Full Server Query ─────────────────────────────
-  epic-3: in-progress
-  3-1-gen-impl-test-objectgroups-structure-and-extend-username-to-v3-0: ready-for-dev
-  3-2-gen-impl-test-credentialvalue-structure: ready-for-dev
-  3-3-gen-impl-test-v3-0-identity-payloads: ready-for-dev
-  3-4a-gen-impl-test-capability-sub-structures: ready-for-dev
-  3-4b-gen-impl-test-capabilityinformation-aggregate-structure: ready-for-dev
-  3-5-gen-impl-test-profileinformation-clusterinfo-and-validationinformation-structures: ready-for-dev
-  3-6-gen-impl-test-rngparameters-randomnumbergenerator-and-protectionstoragemasks-structures: ready-for-dev
-  3-7-wire-capability-structures-into-query-response-payload: ready-for-dev
-  epic-3-retrospective: optional
+  # ── KMIP 2.1 ──────────────────────────────────────────────────────────────
+  epic-20: backlog
+  20-1-wire-capability-structures-into-query-response: backlog
+  20-2-decide-and-implement-clusterinfo: backlog
+  20-3-audit-supportedversions-on-v2x1-types: backlog
+  20-4-fix-enumeration-description-strings: backlog
+  20-5-spi-registration-audit: backlog
+  20-6-regenerate-coverage-artifacts: backlog
+  epic-20-retrospective: optional
 
-  # ── Epic 4: Spec Completeness & Quality Gate ──────────────────────────────
-  epic-4: in-progress
-  4-1-gen-impl-test-itemtype-enumeration: ready-for-dev
-  4-2-audit-and-fix-all-enumeration-description-strings-for-xml-json-deserialization: ready-for-dev
-  4-3-audit-supportedversions-for-all-version-removed-enum-values: ready-for-dev
-  4-5-audit-and-complete-meta-inf-services-spi-registrations: ready-for-dev
-  4-6-unify-remaining-attribute-test-suites-to-interface-pattern: ready-for-dev
-  epic-4-retrospective: optional
+  # ── KMIP 3.0 ──────────────────────────────────────────────────────────────
+  epic-30: backlog
+  30-1-verify-3-0-reserved-tags-and-breaking-changes: backlog
+  30-2-3-0-query-response-and-operation-coverage: backlog
+  30-3-supportedversions-audit-of-v3x0-types-and-enums: backlog
+  epic-30-retrospective: optional

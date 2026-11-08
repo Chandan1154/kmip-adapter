@@ -1,12 +1,12 @@
-package org.purpleBean.kmip.{{pdot}};
+package org.purplebean.kmip.{{pdot}};
 
 import org.junit.jupiter.api.DisplayName;
-import org.purpleBean.kmip.api.EncodingType;
-import org.purpleBean.kmip.api.KmipSpec;
-import org.purpleBean.kmip.model.core.enumeration.State;
-import org.purpleBean.kmip.model.core.type.AttributeValue;
-import org.purpleBean.kmip.test.suite.AbstractKmipDataTypeTestSuite;
-import org.purpleBean.kmip.test.suite.KmipAttributeTestSuite;
+import org.purplebean.kmip.api.EncodingType;
+import org.purplebean.kmip.api.KmipSpec;
+import org.purplebean.kmip.model.core.enumeration.State;
+import org.purplebean.kmip.model.core.type.AttributeValue;
+import org.purplebean.kmip.test.suite.AbstractKmipDataTypeTestSuite;
+import org.purplebean.kmip.test.suite.KmipAttributeTestSuite;
 
 
 import java.math.BigInteger;

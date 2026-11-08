@@ -1,91 +1,47 @@
-# Contributing to KMIP Adapter
+# Contributing
 
-We welcome contributions from the community! Whether you're fixing a bug, adding a new feature, or improving the documentation, your help is appreciated.
+## Ground rules
 
-## How to Contribute
+- If you use AI, say so in the PR and discussions.
+- Understand the project goals first; blindly generated PRs are rejected.
+- Docs are reviewed for brevity. Say it once, link instead of repeating.
+- Open PRs against `develop` (or a feature branch), never directly to a release branch.
 
-1.  **Fork the Repository:**
-    -   Start by forking the main repository to your own GitHub account.
+## Workflow
 
-2.  **Clone the Repository:**
-    -   Clone your forked repository to your local machine:
-        ```bash
-        git clone https://github.com/your-username/kmip-adapter.git
-        ```
+```bash
+git clone https://github.com/purplebean/kmip-adapter.git
+cd kmip-adapter
+git checkout -b feature/<short-name> develop
+mvn test                       # must pass, checkstyle included
+```
 
-3.  **Create a New Branch:**
-    -   Create a new branch for your changes:
-        ```bash
-        git checkout -b feature/my-new-feature
-        ```
+1. Add or change code. New KMIP types: use the generator ([Extending](extending.md)).
+2. Add or update tests with real values ([Testing](testing.md)).
+3. Update docs if behavior or an example changed, including
+   `documentation/DocumentationExamplesTest` when a doc sample changes.
+4. Regenerate reports if you added or removed model classes
+   (`python3 docs/kmip-spec/scrape_kmip_all_versions.py`, `python3 scripts/kmip-coverage-report.py`).
+5. Push and open a PR.
 
-4.  **Make Your Changes:**
-    -   Make your changes to the codebase. Please follow the coding style and conventions used in the project.
-    -   If you are adding a new feature, please also add corresponding tests.
+## Commits
 
-5.  **Run the Tests:**
-    -   Before submitting your changes, make sure that all the tests pass:
-        ```bash
-        ./gradlew test
-        ```
+[Conventional Commits](https://www.conventionalcommits.org/): `<type>(<scope>): <summary>`;
+types `feat`, `fix`, `docs`, `test`, `refactor`, `perf`, `build`, `ci`, `chore`. Examples in the
+history: `test(checkstyle): fix import ordering across test sources`,
+`feat(model): implement ItemType enumeration with full codec and test coverage`.
 
-6.  **Commit Your Changes:**
-    -   Commit your changes with a clear and descriptive commit message. We follow the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) specification. This allows for easier tracking of changes and automated changelog generation.
-    -   Your commit message should be structured as follows:
-        ```
-        <type>[optional scope]: <description>
+## Code style
 
-        [optional body]
+- Google Java Style via Checkstyle (severity `error`, applies to tests); 2-space indent, 100
+  columns, Javadoc on public classes and methods.
+- Keep OASIS names verbatim; if that trips a naming check, extend the suppression file with a
+  comment rather than renaming.
+- Never widen a type's `supportedVersions` without checking the spec.
 
-        [optional footer(s)]
-        ```
-    -   **Common types:**
-        -   `feat`: A new feature
-        -   `fix`: A bug fix
-        -   `docs`: Documentation only changes
-        -   `style`: Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)
-        -   `refactor`: A code change that neither fixes a bug nor adds a feature
-        -   `perf`: A code change that improves performance
-        -   `test`: Adding missing tests or correcting existing tests
-        -   `build`: Changes that affect the build system or external dependencies (example scopes: gradle, npm)
-        -   `ci`: Changes to our CI configuration files and scripts (example scopes: Travis, Circle, BrowserStack, SauceLabs)
-        -   `chore`: Other changes that don't modify `src` or `test` files
-        -   `revert`: Reverts a previous commit
-    -   **Example:**
-        ```bash
-        git commit -m "feat(parser): add support for MyNewStructure"
-        ```
+## Issues
 
-7.  **Push to Your Fork:**
-    -   Push your changes to your forked repository:
-        ```bash
-        git push origin feature/my-new-feature
-        ```
+Bug reports: library version, KMIP spec version, minimal code, expected vs actual. Feature
+requests: the spec section the change implements.
 
-8.  **Create a Pull Request:**
-    -   Open a pull request from your forked repository to the main repository.
-    -   Provide a clear description of your changes and why they are needed.
-
-## Coding Style
-
--   **Java:** Follow the Google Java Style Guide.
--   **Code Formatting:** Use the provided `.editorconfig` file to ensure consistent code formatting.
--   **Comments:** Write clear and concise comments where necessary. Use Javadoc for all public methods and classes.
-
-## Bug Reports
-
-If you find a bug, please open an issue on the GitHub repository. Please include the following information:
-
--   A clear and descriptive title.
--   A detailed description of the bug, including steps to reproduce it.
--   The expected behavior and the actual behavior.
--   The version of the library you are using.
-
-## Feature Requests
-
-If you have an idea for a new feature, please open an issue on the GitHub repository. Please include the following information:
-
--   A clear and descriptive title.
--   A detailed description of the proposed feature and why it would be useful.
-
-Thank you for contributing to the KMIP Adapter!
+Participation is governed by the [Code of Conduct](../CODE_OF_CONDUCT.md).

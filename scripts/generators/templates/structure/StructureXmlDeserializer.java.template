@@ -1,18 +1,18 @@
-package org.purpleBean.kmip.codec.xml.deserializer.{{pdot}};
+package org.purplebean.kmip.codec.xml.deserializer.{{pdot}};
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
-import org.purpleBean.kmip.*;
-import org.purpleBean.kmip.api.*;
-import org.purpleBean.kmip.model.core.enumeration.*;
-import org.purpleBean.kmip.model.core.structure.*;
-import org.purpleBean.kmip.model.core.type.*;
+import org.purplebean.kmip.*;
+import org.purplebean.kmip.api.*;
+import org.purplebean.kmip.model.core.enumeration.*;
+import org.purplebean.kmip.model.core.structure.*;
+import org.purplebean.kmip.model.core.type.*;
 import java.math.BigInteger;
 import java.nio.ByteBuffer;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
-import org.purpleBean.kmip.codec.xml.deserializer.api.AbstractKmipDataTypeXmlDeserializer;
-import org.purpleBean.kmip.{{pdot}}.{{STRUCTURE_NAME}};
+import org.purplebean.kmip.codec.xml.deserializer.api.AbstractKmipDataTypeXmlDeserializer;
+import org.purplebean.kmip.{{pdot}}.{{STRUCTURE_NAME}};
 
 import java.io.IOException;
 

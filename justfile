@@ -63,7 +63,7 @@ test-class TEST:
 # Performance testing
 perf-runner:
     @echo "${GREEN}Running performance benchmarks via runner...${RESET}"
-    mvn -q -DskipTests test-compile exec:java -Dexec.mainClass="org.purpleBean.kmip.benchmark.JmhBenchmarkRunner"
+    mvn -q -DskipTests test-compile exec:java -Dexec.mainClass="org.purplebean.kmip.benchmark.JmhBenchmarkRunner"
 
 perf:
     @echo "${GREEN}Running performance benchmarks...${RESET}"

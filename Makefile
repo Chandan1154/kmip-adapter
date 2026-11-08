@@ -71,7 +71,7 @@ test-class: ## Run a specific test class (e.g., make test-class TEST=com.example
 ## Run performance benchmarks via JMH runner (exec:java)
 perf-runner: ## Run JMH using JmhBenchmarkRunner (skip tests)
 	@echo "${GREEN}Running performance benchmarks via runner...${RESET}"
-	mvn -q -DskipTests test-compile exec:java -Dexec.mainClass="org.purpleBean.kmip.benchmark.JmhBenchmarkRunner"
+	mvn -q -DskipTests test-compile exec:java -Dexec.mainClass="org.purplebean.kmip.benchmark.JmhBenchmarkRunner"
 
 ## Run performance benchmarks (perf profile)
 perf: ## Run performance benchmarks (perf profile)

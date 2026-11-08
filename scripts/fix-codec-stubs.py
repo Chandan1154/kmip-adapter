@@ -12,7 +12,7 @@ import os
 import re
 
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-CODEC_DIR = os.path.join(PROJECT_ROOT, "src", "main", "java", "org", "purpleBean", "kmip", "codec")
+CODEC_DIR = os.path.join(PROJECT_ROOT, "src", "main", "java", "org", "purplebean", "kmip", "codec")
 
 # The TODO block that the generator emits
 TODO_PATTERN = re.compile(

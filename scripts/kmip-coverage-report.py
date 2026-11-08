@@ -24,8 +24,8 @@ from typing import Optional
 # Paths
 # ---------------------------------------------------------------------------
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-MODEL_DIR = os.path.join(PROJECT_ROOT, "src", "main", "java", "org", "purpleBean", "kmip", "model")
-CODEC_DIR = os.path.join(PROJECT_ROOT, "src", "main", "java", "org", "purpleBean", "kmip", "codec")
+MODEL_DIR = os.path.join(PROJECT_ROOT, "src", "main", "java", "org", "purplebean", "kmip", "model")
+CODEC_DIR = os.path.join(PROJECT_ROOT, "src", "main", "java", "org", "purplebean", "kmip", "codec")
 OUTPUT_DIR = os.path.join(PROJECT_ROOT, "docs", "kmip-coverage")
 
 # ---------------------------------------------------------------------------

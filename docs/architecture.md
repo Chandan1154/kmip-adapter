@@ -1,34 +1,75 @@
-# Project Architecture
+# Architecture
 
-The KMIP Adapter is organized into a modular structure that separates the core API, data models, and codec implementations. This design promotes a clean separation of concerns and makes the library easy to navigate and extend.
+## Package layout
 
-## Directory Structure
+`src/main/java/org/purplebean/kmip/`
 
-The main source code is located in `src/main/java/org/purpleBean/kmip` and is organized as follows:
+| Package | Contents |
+|---|---|
+| `api/` | Contracts and registries: `KmipDataType`, `KmipStructure`, `KmipEnumeration`, `KmipAttribute`, `KmipMaskType`, `KmipTag`, `EncodingType`, `KmipSpec`, `KmipContext`, `KmipInitializer`, `ManagedObject`, key/credential value interfaces |
+| `api/request`, `api/response` | Message-level interfaces: `Request/ResponseMessageStructure`, `...HeaderStructure`, `...BatchItemStructure`, `...PayloadStructure`, each with per-spec registries |
+| `model/core` | Shared types: `enumeration/`, `type/`, `structure/` (incl. `request/`, `response/` generic message classes) |
+| `model/v1x2`, `model/v2x1`, `model/v3x0` | Types and operation payloads introduced in that version; payloads sit in `structure/{request,response}/payload/` named `<Operation>Op{Request,Response}Payload` |
+| `codec/` | `KmipCodecManager` plus `ttlv/`, `json/`, `xml/` (each with `serializer/`, `deserializer/` and a `Kmip<Format>Module`) |
+| `util/` | `StringUtils` (PascalCase to Title Case for attribute names) |
+| `Main` | Demo entry point |
 
-- **`api/`**: Contains the core interfaces and classes that define the fundamental building blocks of the KMIP type system. This includes `KmipDataType`, `KmipStructure`, `KmipAttribute`, `KmipTag`, and `KmipContext`. This is the primary entry point for understanding the library's design.
+Tests mirror this under `src/test/java` (see [Testing](testing.md)).
 
-- **`model/`**: Contains the concrete implementations of the KMIP data types defined in the `api/` directory. This includes structures, enumerations, and other data types that are part of the KMIP specification.
-    - **`core/`**: Contains the core data types that are fundamental to the KMIP specification.
-        - **`structure/`**: Contains the implementation of KMIP structures (e.g., `KeyWrappingData`, `ProtocolVersion`).
-        - **`enumeration/`**: Contains the implementation of KMIP enumerations (e.g., `WrappingMethod`, `ResultStatus`).
-        - **`type/`**: Contains the implementation of simple KMIP data types (e.g., `TextString`, `Integer`, `DateTime`).
+## Design rules
 
-- **`codec/`**: Contains the serialization and deserialization logic for different encoding formats (TTLV, JSON, XML).
-    - **`ttlv/`**: The implementation for the standard TTLV (Tag-Type-Length-Value) encoding.
-        - **`serializer/`**: Contains the logic for serializing Java objects into TTLV byte streams.
-        - **`deserializer/`**: Contains the logic for deserializing TTLV byte streams into Java objects.
-        - **`mapper/`**: Contains the central `TtlvMapper` class that orchestrates the TTLV serialization and deserialization process.
-    - **`json/`**: The implementation for JSON encoding.
-    - **`xml/`**: The implementation for XML encoding.
+- **Interface-driven.** Codecs only know `KmipDataType` and its sub-interfaces plus the registries.
+- **Immutable value objects.** Lombok `@Data @Builder(toBuilder = true)`, final `@NonNull` fields,
+  validation in a private constructor.
+- **Self-registering types.** Each class registers itself in a `static {}` block per supported
+  spec. There is no central switch statement to edit.
+- **Spec is ambient state.** `KmipContext` (thread-local) is consulted by constructors, registries
+  and codecs rather than passed as a parameter.
+- **Spec names are preserved.** Class and field names transcribe the OASIS names, including
+  abbreviations; `config/checkstyle/checkstyle-suppressions.xml` documents the exceptions.
 
-- **`util/`**: Contains utility classes that are used throughout the project.
+## Wiring: how a type becomes known
 
-## Key Design Principles
+1. The class has a `kmipTag`, `encodingType`, `supportedVersions` and a `static {}` registration.
+2. Its fully-qualified name is a line in
+   `src/main/resources/META-INF/services/org.purplebean.kmip.api.KmipDataType`.
+   `KmipInitializer` reads that file and `Class.forName`s each line (it is not a `ServiceLoader`
+   call, despite the SPI file layout).
+3. For each format, a serializer and a deserializer class exist and are listed in the format's
+   SPI files (`...KmipDataType{Json,Xml,Ttlv}{Serializer,Deserializer}`), which the
+   `Kmip<Format>Module` loads.
+4. For tests, a benchmark subject is listed in
+   `src/test/resources/META-INF/services/org.purplebean.kmip.benchmark.api.KmipBenchmarkSubject`.
 
-- **Interface-Driven:** The library is heavily reliant on interfaces (`KmipDataType`, `KmipStructure`, etc.) to define the contracts for KMIP data types. This allows for a flexible and extensible design.
-- **Composition over Inheritance:** The library favors composition over inheritance. For example, a `KeyWrappingData` structure is composed of other `KmipDataType` instances, rather than inheriting from them.
-- **Static Registries:** The library uses static registries to map KMIP tags and encoding types to their corresponding Java classes. This allows for a dynamic and extensible codec system.
-- **Immutability:** Where possible, the data model objects are immutable, which makes them thread-safe and predictable.
-- **Context-Awareness:** The `KmipContext` class allows the library to be aware of the current KMIP specification version, which is crucial for handling version-specific rules.
+A fully wired type therefore appears in 7 main SPI files (data type + 6 codec classes) and 1 test
+SPI file. `scripts/generators/generate.sh` writes all of them; a type missing from the first file
+is silently ignored by readers.
+
+## Read path
+
 ```
+bytes/text --> Kmip<Format>Module --> tag + type
+           --> KmipDataType.getClassFromRegistry(tag, type)   // uses KmipContext spec
+           --> <Type><Format>Deserializer --> builder --> validated instance
+```
+
+Structures are read by iterating child nodes and dispatching on child tag in `setValue`.
+Attributes are rebuilt through `KmipAttribute.ATTRIBUTE_BUILDER_REGISTRY`; enumerations through
+`KmipEnumeration.FROM_VALUE_REGISTRY` / `FROM_NAME_REGISTRY`.
+
+## Write path
+
+```
+instance --> <Type><Format>Serializer --> tag, type name, value (children via getValue())
+```
+
+## Request/response layer
+
+`RequestMessageStructure`, `RequestHeaderStructure`, `RequestBatchItemStructure` and
+`RequestPayloadStructure` (and the `Response` mirror) are interfaces. Payload implementations
+register against `(spec, Operation)`. Generic `Simple*` implementations exist for
+`UnknownVersion`. Operation payloads exist for the KMIP 1.2, 2.1 and 3.0 operations. Known gap: the Query response
+does not yet carry the capability/profile/validation structures. Open work is tracked in
+`_bmad-output/planning-artifacts/epics.md`; the generated
+[pending-implementation report](kmip-pending-implementation.md) can lag behind, so regenerate it
+before trusting it.

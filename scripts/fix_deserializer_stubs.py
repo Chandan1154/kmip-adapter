@@ -17,7 +17,7 @@ STRUCTURES = {
     },
     "AsynchronousRequest": {
         "extra_imports": [
-            "org.purpleBean.kmip.model.v2_1.type.SubmissionDate",
+            "org.purplebean.kmip.model.v2_1.type.SubmissionDate",
         ],
         "fields": [
             ("ASYNCHRONOUS_CORRELATION_VALUE", "asynchronousCorrelationValue", "AsynchronousCorrelationValue"),
@@ -35,7 +35,7 @@ STRUCTURES = {
     },
     "CapabilityInformation": {
         "extra_imports": [
-            "org.purpleBean.kmip.model.v2_1.type.*",
+            "org.purplebean.kmip.model.v2_1.type.*",
         ],
         "fields": [
             ("STREAMING_CAPABILITY", "streamingCapability", "StreamingCapability"),
@@ -70,9 +70,9 @@ STRUCTURES = {
     },
     "ProfileInformation": {
         "extra_imports": [
-            "org.purpleBean.kmip.model.v2_1.structure.ProfileVersion",
-            "org.purpleBean.kmip.model.v2_1.type.ServerUri",
-            "org.purpleBean.kmip.model.v2_1.type.ServerPort",
+            "org.purplebean.kmip.model.v2_1.structure.ProfileVersion",
+            "org.purplebean.kmip.model.v2_1.type.ServerUri",
+            "org.purplebean.kmip.model.v2_1.type.ServerPort",
         ],
         "fields": [
             ("PROFILE_NAME", "profileName", "ProfileName"),
@@ -83,8 +83,8 @@ STRUCTURES = {
     },
     "ProfileVersion": {
         "extra_imports": [
-            "org.purpleBean.kmip.model.v2_1.type.ProfileVersionMajor",
-            "org.purpleBean.kmip.model.v2_1.type.ProfileVersionMinor",
+            "org.purplebean.kmip.model.v2_1.type.ProfileVersionMajor",
+            "org.purplebean.kmip.model.v2_1.type.ProfileVersionMinor",
         ],
         "fields": [
             ("PROFILE_VERSION_MAJOR", "profileVersionMajor", "ProfileVersionMajor"),
@@ -99,20 +99,20 @@ STRUCTURES = {
     },
     "Right": {
         "extra_imports": [
-            "org.purpleBean.kmip.model.v2_1.structure.Operations",
-            "org.purpleBean.kmip.model.v2_1.structure.ObjectGroups",
+            "org.purplebean.kmip.model.v2_1.structure.Operations",
+            "org.purplebean.kmip.model.v2_1.structure.ObjectGroups",
         ],
         "fields": [
             ("USAGE_LIMITS", "usageLimits", "UsageLimits"),
             ("OPERATIONS", "operations", "Operations"),
             # managedObjects field uses FQN to avoid java.util.Objects conflict
-            ("OBJECTS", "managedObjects", "org.purpleBean.kmip.model.v2_1.structure.Objects"),
+            ("OBJECTS", "managedObjects", "org.purplebean.kmip.model.v2_1.structure.Objects"),
             ("OBJECT_GROUPS", "objectGroups", "ObjectGroups"),
         ],
     },
     "Rights": {
         "extra_imports": [
-            "org.purpleBean.kmip.model.v2_1.structure.Right",
+            "org.purplebean.kmip.model.v2_1.structure.Right",
         ],
         "fields": [
             ("RIGHT", "right", "Right"),
@@ -120,7 +120,7 @@ STRUCTURES = {
     },
     "RngParameters": {
         "extra_imports": [
-            "org.purpleBean.kmip.model.v2_1.type.PredictionResistance",
+            "org.purplebean.kmip.model.v2_1.type.PredictionResistance",
         ],
         "fields": [
             ("RNG_ALGORITHM", "rngAlgorithm", "RngAlgorithm"),
@@ -135,7 +135,7 @@ STRUCTURES = {
     },
     "ValidationInformation": {
         "extra_imports": [
-            "org.purpleBean.kmip.model.v2_1.type.*",
+            "org.purplebean.kmip.model.v2_1.type.*",
         ],
         "fields": [
             ("VALIDATION_AUTHORITY_TYPE", "validationAuthorityType", "ValidationAuthorityType"),
@@ -154,7 +154,7 @@ STRUCTURES = {
     # core structure
     "RandomNumberGenerator": {
         "extra_imports": [
-            "org.purpleBean.kmip.model.v2_1.structure.RngParameters",
+            "org.purplebean.kmip.model.v2_1.structure.RngParameters",
         ],
         "fields": [
             ("RNG_PARAMETERS", "rngParameters", "RngParameters"),
@@ -249,9 +249,9 @@ def fix_file(path: Path, struct_name: str, is_ttlv: bool) -> bool:
 
 def main():
     codec_dirs = {
-        "json": ROOT / "src/main/java/org/purpleBean/kmip/codec/json/deserializer/model",
-        "xml":  ROOT / "src/main/java/org/purpleBean/kmip/codec/xml/deserializer/model",
-        "ttlv": ROOT / "src/main/java/org/purpleBean/kmip/codec/ttlv/deserializer/model",
+        "json": ROOT / "src/main/java/org/purplebean/kmip/codec/json/deserializer/model",
+        "xml":  ROOT / "src/main/java/org/purplebean/kmip/codec/xml/deserializer/model",
+        "ttlv": ROOT / "src/main/java/org/purplebean/kmip/codec/ttlv/deserializer/model",
     }
 
     fixed = 0

@@ -1,18 +1,18 @@
-package org.purpleBean.kmip.benchmark.subjects.{{pdot}};
+package org.purplebean.kmip.benchmark.subjects.{{pdot}};
 
 import lombok.Getter;
-import org.purpleBean.kmip.*;
-import org.purpleBean.kmip.api.*;
-import org.purpleBean.kmip.model.core.enumeration.*;
-import org.purpleBean.kmip.model.core.structure.*;
-import org.purpleBean.kmip.model.core.type.*;
+import org.purplebean.kmip.*;
+import org.purplebean.kmip.api.*;
+import org.purplebean.kmip.model.core.enumeration.*;
+import org.purplebean.kmip.model.core.structure.*;
+import org.purplebean.kmip.model.core.type.*;
 import java.math.BigInteger;
 import java.nio.ByteBuffer;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
-import org.purpleBean.kmip.api.KmipSpec;
-import org.purpleBean.kmip.benchmark.api.KmipBenchmarkSubject;
-import org.purpleBean.kmip.{{pdot}}.{{NAME}};
+import org.purplebean.kmip.api.KmipSpec;
+import org.purplebean.kmip.benchmark.api.KmipBenchmarkSubject;
+import org.purplebean.kmip.{{pdot}}.{{NAME}};
 
 public class {{NAME}}BenchmarkSubject extends KmipBenchmarkSubject<{{NAME}}> {
 

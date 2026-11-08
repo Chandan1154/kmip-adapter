@@ -22,10 +22,10 @@ import sys
 REPO = pathlib.Path(__file__).resolve().parent.parent
 JSON_PATH = REPO / "docs/kmip-spec/kmip-all-versions-data.json"
 ENUM_DIRS = [
-    REPO / "src/main/java/org/purpleBean/kmip/model/core/enumeration",
-    REPO / "src/main/java/org/purpleBean/kmip/model/v1_2/enumeration",
-    REPO / "src/main/java/org/purpleBean/kmip/model/v2_1/enumeration",
-    REPO / "src/main/java/org/purpleBean/kmip/model/v3_0/enumeration",
+    REPO / "src/main/java/org/purplebean/kmip/model/core/enumeration",
+    REPO / "src/main/java/org/purplebean/kmip/model/v1_2/enumeration",
+    REPO / "src/main/java/org/purplebean/kmip/model/v2_1/enumeration",
+    REPO / "src/main/java/org/purplebean/kmip/model/v3_0/enumeration",
 ]
 
 SPEC_TO_JAVA = {
