@@ -34,7 +34,7 @@ The chunker (`scripts/chunk_kmip_spec.py`) splits two large source files into pe
 1. **Check the source timestamps** vs `chunks/index.md`. Skip if chunks are newer.
 2. **Run the chunker**:
    ```bash
-   cd /Users/prathitaswar/Desktop/Dev/IdeaProjects/kmip-adapter
+   cd "$(git rev-parse --show-toplevel)"
    python3 scripts/chunk_kmip_spec.py
    ```
    Add `--clean` to wipe `chunks/` first (use when the spec scrape removed entities — otherwise stale chunks linger).

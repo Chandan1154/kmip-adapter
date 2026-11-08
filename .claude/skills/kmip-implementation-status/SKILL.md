@@ -19,7 +19,7 @@ Quick read-only summary of the current implementation status from `docs/kmip-pen
 
 ### 1. Staleness check
 ```bash
-cd /Users/prathitaswar/Desktop/Dev/IdeaProjects/kmip-adapter
+cd "$(git rev-parse --show-toplevel)"
 git log -1 --format='%ai' docs/kmip-pending-implementation.md
 git log -1 --format='%ai' src/main/java/org/purplebean/kmip/model/
 ```

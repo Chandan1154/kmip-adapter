@@ -18,7 +18,7 @@ description: Re-run the OASIS KMIP spec scraper and refresh docs/kmip-pending-im
 
 1. **Check the spec HTML files are present.**
    ```bash
-   cd /Users/prathitaswar/Desktop/Dev/IdeaProjects/kmip-adapter
+   cd "$(git rev-parse --show-toplevel)"
    ls docs/kmip-spec/v1.x/*.html docs/kmip-spec/v2.x/*.html docs/kmip-spec/v3.x/*.html
    ```
    If any expected version is missing, stop and tell the user — the scraper needs all six (`v1.2`, `v1.3`, `v1.4`, `v2.0`, `v2.1`, `v3.0`).

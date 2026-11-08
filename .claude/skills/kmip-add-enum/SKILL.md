@@ -88,7 +88,7 @@ Note the static-block registration pattern: `KmipDataType.register`, `KmipAttrib
 
 ### 3. Dry-run the generator
 ```bash
-cd /Users/prathitaswar/Desktop/Dev/IdeaProjects/kmip-adapter
+cd "$(git rev-parse --show-toplevel)"
 ./scripts/generators/generate.sh enum <Name>
 ```
 (No flags → dry-run.) Confirm the proposed file list looks right.

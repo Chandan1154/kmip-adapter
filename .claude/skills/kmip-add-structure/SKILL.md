@@ -42,7 +42,7 @@ Note the conventions:
 
 ### 3. Dry-run the generator
 ```bash
-cd /Users/prathitaswar/Desktop/Dev/IdeaProjects/kmip-adapter
+cd "$(git rev-parse --show-toplevel)"
 ./scripts/generators/generate.sh structure <Name>          # default module=core
 ./scripts/generators/generate.sh structure -m v3x0 <Name>  # version-scoped
 ./scripts/generators/generate.sh structure -s link <Name>  # nested sub-package

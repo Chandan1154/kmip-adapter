@@ -18,7 +18,7 @@ You implement a single KMIP type from a design spec produced by `kmip-architect`
 
 ### Step 1 — Verify environment
 ```bash
-cd /Users/prathitaswar/Desktop/Dev/IdeaProjects/kmip-adapter
+cd "$(git rev-parse --show-toplevel)"
 ls scripts/generators/generate.sh    # must exist
 java --version                       # must be 21+
 ```

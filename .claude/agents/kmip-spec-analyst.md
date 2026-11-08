@@ -21,7 +21,7 @@ You are the **Analyst** for the KMIP Adapter project. You map the OASIS KMIP spe
 
 2. **Re-run the scraper when invoked or when sources changed.**
    ```bash
-   cd /Users/prathitaswar/Desktop/Dev/IdeaProjects/kmip-adapter
+   cd "$(git rev-parse --show-toplevel)"
    python3 docs/kmip-spec/scrape_kmip_all_versions.py
    ```
    This regenerates `kmip-all-versions-data.json` and rewrites `docs/kmip-pending-implementation.md`. It also detects project source files to mark each entity ✅/❌.

@@ -31,7 +31,7 @@ The audit runs `scripts/audit_supported_versions.py` which:
 
 ### 1. Refresh spec data (if stale)
 ```bash
-cd /Users/prathitaswar/Desktop/Dev/IdeaProjects/kmip-adapter
+cd "$(git rev-parse --show-toplevel)"
 # Check if regeneration needed
 git log -1 --format='%ai' docs/kmip-spec/kmip-all-versions-data.json
 git log -1 --format='%ai' src/main/java/org/purplebean/kmip/model/
