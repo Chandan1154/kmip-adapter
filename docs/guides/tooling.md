@@ -56,3 +56,12 @@ Optional automation, described in [`.claude/README.md`](../../.claude/README.md)
 `kmip-scrape-spec`, `kmip-chunk-spec`, `kmip-implementation-status`, `kmip-version-audit`,
 `kmip-fix-tc-failures`, `bmad-generate-kmip-code`). They wrap the scripts above; nothing
 in the build depends on them.
+
+### Optional: BMAD workflow
+
+`_bmad/` (BMAD 6.10.0 config and manifests) and `_bmad-output/` (`planning-artifacts/epics.md`,
+`implementation-artifacts/sprint-status.yaml`) support the optional
+[BMAD-Method](https://github.com/bmad-code-org/BMAD-METHOD) planning workflow. The generic `bmad-*`
+skills are not committed; a developer who wants them installs BMAD in their own checkout, and it
+picks up the existing `_bmad/` config and the open-work plan. Nothing in the build or the `kmip-*`
+skills requires BMAD.
