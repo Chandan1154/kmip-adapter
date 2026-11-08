@@ -1,31 +1,28 @@
 package org.purplebean.kmip.benchmark.subjects.{{pdot}};
 
 import lombok.Getter;
-import org.purplebean.kmip.*;
 import org.purplebean.kmip.api.*;
+import org.purplebean.kmip.benchmark.api.KmipBenchmarkSubject;
 import org.purplebean.kmip.model.core.enumeration.*;
 import org.purplebean.kmip.model.core.structure.*;
 import org.purplebean.kmip.model.core.type.*;
-import java.math.BigInteger;
-import java.nio.ByteBuffer;
-import java.time.OffsetDateTime;
-import java.time.ZoneOffset;
-import org.purplebean.kmip.api.KmipSpec;
-import org.purplebean.kmip.benchmark.api.KmipBenchmarkSubject;
 import org.purplebean.kmip.{{pdot}}.{{NAME}};
 
-public class {{NAME}}BenchmarkSubject extends KmipBenchmarkSubject<{{NAME}}> {
+/** Benchmark subject for {@link {{NAME}}}. */
+public class {{NAME}}BenchmarkSubject
+    extends KmipBenchmarkSubject<{{NAME}}> {
 
-    @Getter
-    private KmipSpec spec = KmipSpec.UnknownVersion;
+  @Getter private KmipSpec spec = KmipSpec.UnknownVersion;
 
-    public {{NAME}}BenchmarkSubject() throws Exception {
-        {{NAME}} subject = {{create_default}};
-        initialize(subject, {{NAME}}.class);
-    }
+  /** Creates the subject from a default {@link {{NAME}}} instance. */
+  public {{NAME}}BenchmarkSubject() throws Exception {
+    {{NAME}} subject =
+        {{create_default}};
+    initialize(subject, {{NAME}}.class);
+  }
 
-    @Override
-    public String name() {
-        return "{{NAME}}";
-    }
+  @Override
+  public String name() {
+    return "{{NAME}}";
+  }
 }

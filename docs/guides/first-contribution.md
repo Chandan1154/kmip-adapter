@@ -52,21 +52,26 @@ version sets matter: a value removed in 3.0 must not list `V3_0`. The generated 
 ## 4. Test
 
 ```bash
-mvn test -Dcheckstyle.skip -Dtest='TutorialColor*'
+mvn test -Dtest='TutorialColor*'
 # Tests run: 16, Failures: 0, Errors: 0
 ```
 
-## 5. Make it pass checkstyle
+## 5. Run the full build
 
-Generated sources use 4-space indentation and long lines, so the real build (`mvn test`, checkstyle
-at `validate`, severity `error`) rejects them: a fresh generated enum produced 419 violations.
-Reformat to Google style (IntelliJ: import the Google Java style scheme and reformat the new files;
-look at `State.java` or `ProtocolVersion.java` for the target shape), add Javadoc, then:
+Generated sources are Google-style except for wildcard imports (left in so you can use any model
+class while filling in the stub). Checkstyle (at `validate`, severity `error`) rejects wildcard
+imports, so replace each `*` import with the explicit classes you use, and for type names over
+about 30 characters wrap any line it flags past 100 columns.
 
 ```bash
 mvn test            # full build including checkstyle
 python3 scripts/audit_supported_versions.py     # supportedVersions vs the spec
 ```
+
+Expect generated tests with unfinished stubs to fail until you fill them in: a structure's
+`createDefault()` uses an empty builder, and attribute tests need real `getAttributeValue()`
+expectations. Attribute round trips also fail for KMIP 2.x modules, where the generic
+`Attribute` structure is not used.
 
 ## 6. Finish
 

@@ -1,55 +1,47 @@
 package org.purplebean.kmip.{{pdot}};
 
+import java.util.List;
 import org.junit.jupiter.api.DisplayName;
-import org.purplebean.kmip.*;
 import org.purplebean.kmip.api.*;
 import org.purplebean.kmip.model.core.enumeration.*;
 import org.purplebean.kmip.model.core.structure.*;
 import org.purplebean.kmip.model.core.type.*;
-import java.math.BigInteger;
-import java.nio.ByteBuffer;
-import java.time.OffsetDateTime;
-import java.time.ZoneOffset;
 import org.purplebean.kmip.test.suite.AbstractKmipStructureTestSuite;
 
-
-import java.util.List;
-
-import static org.assertj.core.api.Assertions.assertThat;
-
 @DisplayName("{{STRUCTURE_NAME}} Domain Tests")
-class {{STRUCTURE_NAME}}Test extends AbstractKmipStructureTestSuite<{{STRUCTURE_NAME}}> {
+class {{STRUCTURE_NAME}}Test
+    extends AbstractKmipStructureTestSuite<{{STRUCTURE_NAME}}> {
 
-    @Override
-    protected void setupDefaultSpec() {
-        defaultSpec = {{DEFAULT_SPEC}};
-    }
+  @Override
+  protected void setupDefaultSpec() {
+    defaultSpec = {{DEFAULT_SPEC}};
+  }
 
-    @Override
-    protected Class<{{STRUCTURE_NAME}}> type() {
-        return {{STRUCTURE_NAME}}.class;
-    }
+  @Override
+  protected Class<{{STRUCTURE_NAME}}> type() {
+    return {{STRUCTURE_NAME}}.class;
+  }
 
-    @Override
-    protected {{STRUCTURE_NAME}} createDefault() {
-        // TODO: Create a default instance of the structure
-        return new {{STRUCTURE_NAME}}();
-    }
+  @Override
+  protected {{STRUCTURE_NAME}} createDefault() {
+    // TODO: Create a default instance of the structure
+    return {{STRUCTURE_NAME}}.builder().build();
+  }
 
-    @Override
-    protected EncodingType expectedEncodingType() {
-        return EncodingType.STRUCTURE;
-    }
+  @Override
+  protected EncodingType expectedEncodingType() {
+    return EncodingType.STRUCTURE;
+  }
 
-    @Override
-    protected int expectedMinComponentCount() {
-        // TODO: Set the expected minimum number of components
-        return 0;
-    }
+  @Override
+  protected int expectedMinComponentCount() {
+    // TODO: Set the expected minimum number of components
+    return 0;
+  }
 
-    @Override
-    protected void validateComponents(List<KmipDataType> values) {
-        // TODO: Validate the components of the structure
-        // assertThat(values).hasSize(0);
-    }
+  @Override
+  protected void validateComponents(List<KmipDataType> values) {
+    // TODO: Validate the components of the structure
+    // assertThat(values).hasSize(0);
+  }
 }

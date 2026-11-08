@@ -1,38 +1,33 @@
 package org.purplebean.kmip.{{pdot}};
 
 import org.junit.jupiter.api.DisplayName;
-import org.purplebean.kmip.*;
 import org.purplebean.kmip.api.*;
 import org.purplebean.kmip.model.core.enumeration.*;
 import org.purplebean.kmip.model.core.structure.*;
 import org.purplebean.kmip.model.core.type.*;
-import java.math.BigInteger;
-import java.nio.ByteBuffer;
-import java.time.OffsetDateTime;
-import java.time.ZoneOffset;
 import org.purplebean.kmip.test.suite.AbstractKmipDataTypeTestSuite;
 
-
 @DisplayName("{{DATA_NAME}} Domain Tests")
-class {{DATA_NAME}}Test extends AbstractKmipDataTypeTestSuite<{{DATA_NAME}}> {
+class {{DATA_NAME}}Test
+    extends AbstractKmipDataTypeTestSuite<{{DATA_NAME}}> {
 
-    @Override
-    protected void setupDefaultSpec() {
-        defaultSpec = {{DEFAULT_SPEC}};
-    }
+  @Override
+  protected void setupDefaultSpec() {
+    defaultSpec = {{DEFAULT_SPEC}};
+  }
 
-    @Override
-    protected Class<{{DATA_NAME}}> type() {
-        return {{DATA_NAME}}.class;
-    }
+  @Override
+  protected Class<{{DATA_NAME}}> type() {
+    return {{DATA_NAME}}.class;
+  }
 
-    @Override
-    protected {{DATA_NAME}} createDefault() {
-        return {{DATA_NAME}}.of({{DEFAULT_VALUE}});
-    }
+  @Override
+  protected {{DATA_NAME}} createDefault() {
+    return {{DATA_NAME}}.of({{DEFAULT_VALUE}});
+  }
 
-    @Override
-    protected EncodingType expectedEncodingType() {
-        return EncodingType.{{ENCODING_TYPE}};
-    }
+  @Override
+  protected EncodingType expectedEncodingType() {
+    return EncodingType.{{ENCODING_TYPE}};
+  }
 }

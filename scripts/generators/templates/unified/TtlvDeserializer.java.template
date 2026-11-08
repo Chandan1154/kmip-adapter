@@ -1,44 +1,48 @@
 package org.purplebean.kmip.codec.ttlv.deserializer.{{pdot}};
 
-import org.purplebean.kmip.*;
+import java.io.IOException;
+import java.nio.ByteBuffer;
 import org.purplebean.kmip.api.*;
+import org.purplebean.kmip.codec.ttlv.deserializer.api.AbstractKmipDataTypeTtlvDeserializer;
+import org.purplebean.kmip.codec.ttlv.mapper.TtlvMapper;
 import org.purplebean.kmip.model.core.enumeration.*;
 import org.purplebean.kmip.model.core.structure.*;
 import org.purplebean.kmip.model.core.type.*;
-import java.math.BigInteger;
-import java.nio.ByteBuffer;
-import java.time.OffsetDateTime;
-import java.time.ZoneOffset;
-import org.purplebean.kmip.codec.ttlv.deserializer.api.AbstractKmipDataTypeTtlvDeserializer;
-import org.purplebean.kmip.codec.ttlv.mapper.TtlvMapper;
 import org.purplebean.kmip.{{pdot}}.{{NAME}};
 
-import java.io.IOException;
+/** TTLV deserializer for {@link {{NAME}}}. */
+public class {{NAME}}TtlvDeserializer
+    extends AbstractKmipDataTypeTtlvDeserializer<
+        {{NAME}},
+        {{NAME}}.{{NAME}}Builder> {
 
-/**
- * TTLV deserializer for {@link {{NAME}}}.
- */
-public class {{NAME}}TtlvDeserializer extends AbstractKmipDataTypeTtlvDeserializer<{{NAME}}, {{NAME}}.{{NAME}}Builder> {
+  /** Constructs a new deserializer. */
+  public {{NAME}}TtlvDeserializer() {
+    super(
+        {{NAME}}.kmipTag,
+        {{NAME}}.encodingType);
+  }
 
-    /**
-     * Constructs a new {@link {{NAME}}TtlvDeserializer}.
-     */
-    public {{NAME}}TtlvDeserializer() {
-        super({{NAME}}.kmipTag, {{NAME}}.encodingType);
-    }
+  @Override
+  protected {{NAME}}.{{NAME}}Builder
+      createBuilder() {
+    return {{NAME}}.builder();
+  }
 
-    @Override
-    protected {{NAME}}.{{NAME}}Builder createBuilder() {
-        return {{NAME}}.builder();
-    }
+  @Override
+  protected void setValue(
+      {{NAME}}.{{NAME}}Builder builder,
+      byte[] tag,
+      byte type,
+      ByteBuffer p,
+      TtlvMapper mapper)
+      throws IOException {
+    builder.value({{SUPER_CALL}});
+  }
 
-    @Override
-    protected void setValue({{NAME}}.{{NAME}}Builder builder, byte[] tag, byte type, ByteBuffer p, TtlvMapper mapper) throws IOException {
-        builder.value({{SUPER_CALL}});
-    }
-
-    @Override
-    protected {{NAME}} build({{NAME}}.{{NAME}}Builder builder) {
-        return builder.build();
-    }
+  @Override
+  protected {{NAME}} build(
+      {{NAME}}.{{NAME}}Builder builder) {
+    return builder.build();
+  }
 }

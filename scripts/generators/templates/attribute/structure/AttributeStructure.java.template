@@ -1,181 +1,179 @@
 package org.purplebean.kmip.{{pdot}};
 
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NonNull;
-import lombok.Singular;
-import org.purplebean.kmip.*;
 import org.purplebean.kmip.api.*;
 import org.purplebean.kmip.model.core.enumeration.*;
 import org.purplebean.kmip.model.core.structure.*;
 import org.purplebean.kmip.model.core.type.*;
 import org.purplebean.kmip.util.StringUtils;
 
-import java.math.BigInteger;
-import java.nio.ByteBuffer;
-import java.time.OffsetDateTime;
-import java.time.ZoneOffset;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
-/**
- * KMIP {{ATTRIBUTE_NAME}} attribute structure.
- */
+/** KMIP {{ATTRIBUTE_NAME}} attribute structure. */
 @Data
 @Builder(toBuilder = true)
 public class {{ATTRIBUTE_NAME}} implements KmipStructure, KmipAttribute {
-    public static final KmipTag kmipTag = KmipTag.Standard.{{ATTRIBUTE_NAME_SNAKE}}.inst();
-    private static final Set<KmipSpec> supportedVersions = {{SUPPORTED_VERSIONS}}; // introduced in KMIP {{KMIP_VERSION}} — extend if present in later specs
+  public static final KmipTag kmipTag =
+      KmipTag.Standard.{{ATTRIBUTE_NAME_SNAKE}}.inst();
+  // Introduced in KMIP {{KMIP_VERSION}}; extend if present in later specs.
+  private static final Set<KmipSpec> supportedVersions =
+      {{SUPPORTED_VERSIONS}};
 
-    static {
-        for (KmipSpec spec : supportedVersions) {
-            if (spec == KmipSpec.UnknownVersion || spec == KmipSpec.UnsupportedVersion) continue;
-            KmipDataType.register(spec, kmipTag.getValue(), encodingType, {{ATTRIBUTE_NAME}}.class);
-            KmipAttribute.register(spec, kmipTag.getValue(), encodingType, {{ATTRIBUTE_NAME}}.class, {{ATTRIBUTE_NAME}}::of);
-        }
+  static {
+    for (KmipSpec spec : supportedVersions) {
+      if (spec == KmipSpec.UnknownVersion || spec == KmipSpec.UnsupportedVersion) {
+        continue;
+      }
+      KmipDataType.register(
+          spec, kmipTag.getValue(), encodingType, {{ATTRIBUTE_NAME}}.class);
+      KmipAttribute.register(
+          spec,
+          kmipTag.getValue(),
+          encodingType,
+          {{ATTRIBUTE_NAME}}.class,
+          {{ATTRIBUTE_NAME}}::of);
     }
+  }
 
-    // TODO: Add fields for the structure, e.g.:
-    // @NonNull
-    // private final Field1 field1;
-    // @NonNull
-    // @Singular
-    // private final List<Field2> field2s;
+  // TODO: Add fields for the structure, e.g.:
+  // @NonNull
+  // private final Field1 field1;
+  // @NonNull
+  // @Singular
+  // private final List<Field2> field2s;
 
-    // TODO: Add a custom constructor for the builder
-    @Builder
-    private {{ATTRIBUTE_NAME}}(
-            // @NonNull Field1 field1,
-            // List<Field2> field2s
-    ) {
-        // this.field1 = field1;
-        // this.field2s = (field2s == null) ? Collections.emptyList() : field2s;
-        validate();
+  // TODO: Add a custom constructor for the builder
+  @Builder
+  // Constructor parameters go here, e.g. {@code @NonNull Field1 field1, List<Field2> field2s}.
+  private {{ATTRIBUTE_NAME}}() {
+    // this.field1 = field1;
+    // this.field2s = (field2s == null) ? Collections.emptyList() : field2s;
+    validate();
+  }
+
+  /** Returns the {@link {{ATTRIBUTE_NAME}}} for the given name and value. */
+  public static {{ATTRIBUTE_NAME}} of(
+      @NonNull AttributeName attributeName, @NonNull AttributeValue attributeValue) {
+    if (attributeValue.getEncodingType() != encodingType
+        || !(attributeValue.getValue() instanceof KmipDataType[] structure)) {
+      throw new IllegalArgumentException("Invalid attribute value");
     }
+    Map<KmipTag, List<KmipDataType>> map =
+        Stream.of(structure).collect(Collectors.groupingBy(KmipDataType::getKmipTag));
+    // TODO: Update to extract fields from the map and call the other 'of' method
+    // var builder = {{ATTRIBUTE_NAME}}.builder();
+    // if (map.containsKey(Field1.kmipTag)) {
+    //     builder.field1((Field1) map.get(Field1.kmipTag).getFirst());
+    // }
+    // if (map.containsKey(Field2.kmipTag)) {
+    //     map.get(Field2.kmipTag).forEach(item -> builder.field2((Field2) item));
+    // }
+    // return builder.build();
+    throw new UnsupportedOperationException("Not yet implemented");
+  }
 
-    /**
-     * Returns the {@link {{ATTRIBUTE_NAME}}} instance for the given attribute name/value pair.
-     */
-    public static {{ATTRIBUTE_NAME}} of(@NonNull AttributeName attributeName, @NonNull AttributeValue attributeValue) {
-        if (attributeValue.getEncodingType() != encodingType || !(attributeValue.getValue() instanceof KmipDataType[] structure)) {
-            throw new IllegalArgumentException("Invalid attribute value");
-        }
-        Map<KmipTag, List<KmipDataType>> map = Stream.of(structure).collect(Collectors.groupingBy(KmipDataType::getKmipTag));
-        // TODO: Update to extract fields from the map and call the other 'of' method
-        // {{ATTRIBUTE_NAME}}Builder builder = {{ATTRIBUTE_NAME}}.builder();
-        // if (map.containsKey(Field1.kmipTag)) {
-        //     builder.field1((Field1) map.get(Field1.kmipTag).getFirst());
-        // }
-        // if (map.containsKey(Field2.kmipTag)) {
-        //     map.get(Field2.kmipTag).forEach(item -> builder.field2((Field2) item));
-        // }
-        // return builder.build();
-        throw new UnsupportedOperationException("Not yet implemented");
-    }
+  // TODO: Add an 'of' method with all the fields as arguments
+  /** Returns the {@link {{STRUCTURE_NAME}}} instance for the given fields. */
+  // Factory parameters go here, e.g. {@code @NonNull Field1 field1, @NonNull Field2 field2}.
+  public static {{STRUCTURE_NAME}} of() {
+    return {{STRUCTURE_NAME}}
+        .builder()
+        // .field1(field1)
+        // .field2(field2)
+        .build();
+  }
 
-    // TODO: Add an 'of' method with all the fields as arguments
-    /**
-     * Returns the {@link {{STRUCTURE_NAME}}} instance for the given fields.
-     */
-    public static {{STRUCTURE_NAME}} of(
-                // @NonNull Field1 field1,
-                // @NonNull Field2 field2
-    ) {
-        return {{STRUCTURE_NAME}}.builder()
-                     // .field1(field1)
-                     // .field2(field2)
-                     .build();
+  // TODO: Add a validate method
+  private void validate() {
+    if (!isSupported()) {
+      throw new IllegalArgumentException(
+          String.format("Unsupported object type for %s: %s", KmipContext.getSpec(), getKmipTag()));
     }
+    // Add validation logic here
+  }
 
-    // TODO: Add a validate method
-    private void validate() {
-        if (!isSupported()) {
-            throw new IllegalArgumentException(String.format("Unsupported object type for %s: %s", KmipContext.getSpec(), getKmipTag()));
-        }
-        // Add validation logic here
-    }
+  @Override
+  public KmipTag getKmipTag() {
+    return kmipTag;
+  }
 
-    @Override
-    public KmipTag getKmipTag() {
-        return kmipTag;
-    }
+  @Override
+  public EncodingType getEncodingType() {
+    return encodingType;
+  }
 
-    @Override
-    public EncodingType getEncodingType() {
-        return encodingType;
-    }
+  @Override
+  public boolean isSupported() {
+    KmipSpec spec = KmipContext.getSpec();
+    return supportedVersions.contains(spec)
+        && Stream.of(getValue()).allMatch(KmipDataType::isSupported);
+  }
 
-    @Override
-    public boolean isSupported() {
-        KmipSpec spec = KmipContext.getSpec();
-        return supportedVersions.contains(spec) && Stream.of(getValue()).allMatch(KmipDataType::isSupported);
-    }
+  @Override
+  public KmipDataType[] getValue() {
+    // TODO: Return a list of all the fields
+    // return Stream.of(
+    //                 field1,
+    //                 field2s)
+    //         .filter(Objects::nonNull)
+    //         .flatMap(val -> val instanceof List ? ((List<?>) val).stream() : Stream.of(val))
+    //         .map(KmipDataType.class::cast)
+    //         .toArray(KmipDataType[]::new);
+    return new KmipDataType[0];
+  }
 
-    @Override
-    public KmipDataType[] getValue() {
-        // TODO: Return a list of all the fields
-        // return Stream.of(
-        //                 field1,
-        //                 field2s)
-        //         .filter(Objects::nonNull)
-        //         .flatMap(val -> val instanceof List ? ((List<?>) val).stream() : Stream.of(val))
-        //         .map(KmipDataType.class::cast)
-        //         .toArray(KmipDataType[]::new);
-        return new KmipDataType[0];
-    }
+  @Override
+  public AttributeValue getAttributeValue() {
+    return AttributeValue.ofStructure(getValue());
+  }
 
-    @Override
-    public AttributeValue getAttributeValue() {
-        return AttributeValue.ofStructure(getValue());
-    }
+  @Override
+  public AttributeName getAttributeName() {
+    return AttributeName.of(StringUtils.convertPascalToTitleCase(kmipTag.getDescription()));
+  }
 
-    @Override
-    public AttributeName getAttributeName() {
-        return AttributeName.of(StringUtils.convertPascalToTitleCase(kmipTag.getDescription()));
-    }
+  @Override
+  public String getCanonicalName() {
+    return kmipTag.getDescription();
+  }
 
-    @Override
-    public String getCanonicalName() {
-        return kmipTag.getDescription();
-    }
+  @Override
+  public boolean isAlwaysPresent() {
+    return false; // TODO: Adjust as needed
+  }
 
-    @Override
-    public boolean isAlwaysPresent() {
-        return false; // TODO: Adjust as needed
-    }
+  @Override
+  public boolean isServerInitializable() {
+    return false; // TODO: Adjust as needed
+  }
 
-    @Override
-    public boolean isServerInitializable() {
-        return false; // TODO: Adjust as needed
-    }
+  @Override
+  public boolean isClientInitializable() {
+    return false; // TODO: Adjust as needed
+  }
 
-    @Override
-    public boolean isClientInitializable() {
-        return false; // TODO: Adjust as needed
-    }
+  @Override
+  public boolean isServerModifiable(@NonNull State state) {
+    return false; // TODO: Adjust as needed
+  }
 
-    @Override
-    public boolean isServerModifiable(@NonNull State state) {
-        return false; // TODO: Adjust as needed
-    }
+  @Override
+  public boolean isClientModifiable(@NonNull State state) {
+    return false; // TODO: Adjust as needed
+  }
 
-    @Override
-    public boolean isClientModifiable(@NonNull State state) {
-        return false; // TODO: Adjust as needed
-    }
+  @Override
+  public boolean isClientDeletable() {
+    return false; // TODO: Adjust as needed
+  }
 
-    @Override
-    public boolean isClientDeletable() {
-        return false; // TODO: Adjust as needed
-    }
-
-    @Override
-    public boolean isMultiInstanceAllowed() {
-        return false; // TODO: Adjust as needed
-    }
+  @Override
+  public boolean isMultiInstanceAllowed() {
+    return false; // TODO: Adjust as needed
+  }
 }

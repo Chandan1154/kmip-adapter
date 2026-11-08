@@ -8,99 +8,95 @@ import org.purplebean.kmip.model.core.type.AttributeValue;
 import org.purplebean.kmip.test.suite.AbstractKmipDataTypeTestSuite;
 import org.purplebean.kmip.test.suite.KmipAttributeTestSuite;
 
-
-import java.math.BigInteger;
-import java.nio.ByteBuffer;
-import java.time.OffsetDateTime;
-import java.time.ZoneOffset;
-
 @DisplayName("{{ATTRIBUTE_NAME}} Domain Tests")
-class {{ATTRIBUTE_NAME}}Test extends AbstractKmipDataTypeTestSuite<{{ATTRIBUTE_NAME}}> implements KmipAttributeTestSuite<{{ATTRIBUTE_NAME}}> {
+class {{ATTRIBUTE_NAME}}Test
+    extends AbstractKmipDataTypeTestSuite<{{ATTRIBUTE_NAME}}>
+    implements KmipAttributeTestSuite<{{ATTRIBUTE_NAME}}> {
 
-    // TODO: Adjust FIXED_VALUE based on DATA_TYPE
-    private static final {{DATA_TYPE}} FIXED_VALUE = {{DEFAULT_VALUE}};
+  // TODO: Adjust FIXED_VALUE based on DATA_TYPE
+  private static final {{DATA_TYPE}} FIXED_VALUE = {{DEFAULT_VALUE}};
 
-    @Override
-    protected void setupDefaultSpec() {
-        defaultSpec = {{DEFAULT_SPEC}};
-    }
+  @Override
+  protected void setupDefaultSpec() {
+    defaultSpec = {{DEFAULT_SPEC}};
+  }
 
-    @Override
-    protected Class<{{ATTRIBUTE_NAME}}> type() {
-        return {{ATTRIBUTE_NAME}}.class;
-    }
+  @Override
+  protected Class<{{ATTRIBUTE_NAME}}> type() {
+    return {{ATTRIBUTE_NAME}}.class;
+  }
 
-    @Override
-    protected {{ATTRIBUTE_NAME}} createDefault() {
-        return {{ATTRIBUTE_NAME}}.of(FIXED_VALUE);
-    }
+  @Override
+  public {{ATTRIBUTE_NAME}} createDefault() {
+    return {{ATTRIBUTE_NAME}}.of(FIXED_VALUE);
+  }
 
-    @Override
-    protected EncodingType expectedEncodingType() {
-        return EncodingType.{{ENCODING_TYPE}};
-    }
+  @Override
+  protected EncodingType expectedEncodingType() {
+    return EncodingType.{{ENCODING_TYPE}};
+  }
 
-    @Override
-    public boolean expectAlwaysPresent() {
-        return false; // TODO: Adjust as needed
-    }
+  @Override
+  public boolean expectAlwaysPresent() {
+    return false; // TODO: Adjust as needed
+  }
 
-    @Override
-    public boolean expectServerInitializable() {
-        return true; // TODO: Adjust as needed
-    }
+  @Override
+  public boolean expectServerInitializable() {
+    return true; // TODO: Adjust as needed
+  }
 
-    @Override
-    public boolean expectClientInitializable() {
-        return true; // TODO: Adjust as needed
-    }
+  @Override
+  public boolean expectClientInitializable() {
+    return true; // TODO: Adjust as needed
+  }
 
-    @Override
-    public boolean expectClientDeletable() {
-        return false; // TODO: Adjust as needed
-    }
+  @Override
+  public boolean expectClientDeletable() {
+    return false; // TODO: Adjust as needed
+  }
 
-    @Override
-    public boolean expectMultiInstanceAllowed() {
-        return false; // TODO: Adjust as needed
-    }
+  @Override
+  public boolean expectMultiInstanceAllowed() {
+    return false; // TODO: Adjust as needed
+  }
 
-    @Override
-    public State stateForServerModifiableTrue() {
-        return State.Standard.PRE_ACTIVE.inst(); // TODO: Adjust as needed
-    }
+  @Override
+  public State stateForServerModifiableTrue() {
+    return State.Standard.PRE_ACTIVE.inst(); // TODO: Adjust as needed
+  }
 
-    @Override
-    public State stateForServerModifiableFalse() {
-        return State.Standard.ACTIVE.inst(); // TODO: Adjust as needed
-    }
+  @Override
+  public State stateForServerModifiableFalse() {
+    return State.Standard.ACTIVE.inst(); // TODO: Adjust as needed
+  }
 
-    @Override
-    public State stateForClientModifiableTrue() {
-        return State.Standard.PRE_ACTIVE.inst(); // TODO: Adjust as needed
-    }
+  @Override
+  public State stateForClientModifiableTrue() {
+    return State.Standard.PRE_ACTIVE.inst(); // TODO: Adjust as needed
+  }
 
-    @Override
-    public State stateForClientModifiableFalse() {
-        return State.Standard.ACTIVE.inst(); // TODO: Adjust as needed
-    }
+  @Override
+  public State stateForClientModifiableFalse() {
+    return State.Standard.ACTIVE.inst(); // TODO: Adjust as needed
+  }
 
-    @Override
-    public AttributeValue expectedAttributeValue() {
-        // TODO: Return the expected AttributeValue for FIXED_VALUE
-        // Example: return AttributeValue.ofInteger(FIXED_VALUE);
-        return null;
-    }
+  @Override
+  public AttributeValue expectedAttributeValue() {
+    // TODO: Return the expected AttributeValue for FIXED_VALUE
+    // Example: return AttributeValue.ofInteger(FIXED_VALUE);
+    return null;
+  }
 
-    @Override
-    public void attribute_serverModifiable_respectsState() {
-        // TODO: Implement or remove if using default
-        KmipAttributeTestSuite.super.attribute_serverModifiable_respectsState();
-    }
+  @Override
+  public void attribute_serverModifiable_respectsState() {
+    // TODO: Implement or remove if using default
+    KmipAttributeTestSuite.super.attribute_serverModifiable_respectsState();
+  }
 
-    @Override
-    public void attribute_clientModifiable_respectsState() {
-        // TODO: Implement or remove if using default
-        KmipAttributeTestSuite.super.attribute_clientModifiable_respectsState();
-    }
+  @Override
+  public void attribute_clientModifiable_respectsState() {
+    // TODO: Implement or remove if using default
+    KmipAttributeTestSuite.super.attribute_clientModifiable_respectsState();
+  }
 }

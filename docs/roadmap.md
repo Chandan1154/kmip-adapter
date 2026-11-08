@@ -24,7 +24,8 @@ No functional gaps. Keep `KmipV12VerificationTest` green while shared types chan
 
 ## Cross-cutting
 - Re-enable or delete the `@Disabled` debug tests in `KmipV21VerificationTest`.
-- Make generator templates emit checkstyle-clean code.
+- Generated code still needs its wildcard imports replaced before it passes checkstyle (kept on
+  purpose so devs can reach any model class while filling stubs).
 - Fix TTLV reading through message interfaces ([Messages](guides/messages.md#quirks-to-know)).
 
 Want to help? Start with [Your first contribution](guides/first-contribution.md).

@@ -2,44 +2,47 @@ package org.purplebean.kmip.codec.json.deserializer.{{pdot}};
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
-import org.purplebean.kmip.*;
+import java.io.IOException;
 import org.purplebean.kmip.api.*;
+import org.purplebean.kmip.codec.json.deserializer.api.AbstractKmipDataTypeJsonDeserializer;
 import org.purplebean.kmip.model.core.enumeration.*;
 import org.purplebean.kmip.model.core.structure.*;
 import org.purplebean.kmip.model.core.type.*;
-import java.math.BigInteger;
-import java.nio.ByteBuffer;
-import java.time.OffsetDateTime;
-import java.time.ZoneOffset;
-import org.purplebean.kmip.codec.json.deserializer.api.AbstractKmipDataTypeJsonDeserializer;
 import org.purplebean.kmip.{{pdot}}.{{NAME}};
 
-import java.io.IOException;
+/** JSON deserializer for {@link {{NAME}}}. */
+public class {{NAME}}JsonDeserializer
+    extends AbstractKmipDataTypeJsonDeserializer<
+        {{NAME}},
+        {{NAME}}.{{NAME}}Builder> {
 
-/**
- * JSON deserializer for {@link {{NAME}}}.
- */
-public class {{NAME}}JsonDeserializer extends AbstractKmipDataTypeJsonDeserializer<{{NAME}}, {{NAME}}.{{NAME}}Builder> {
+  /** Constructs a new deserializer. */
+  public {{NAME}}JsonDeserializer() {
+    super(
+        {{NAME}}.kmipTag,
+        {{NAME}}.encodingType);
+  }
 
-    /**
-     * Constructs a new {@link {{NAME}}JsonDeserializer}.
-     */
-    public {{NAME}}JsonDeserializer() {
-        super({{NAME}}.kmipTag, {{NAME}}.encodingType);
-    }
+  @Override
+  protected {{NAME}}.{{NAME}}Builder
+      createBuilder() {
+    return {{NAME}}.builder();
+  }
 
-    @Override
-    protected {{NAME}}.{{NAME}}Builder createBuilder() {
-        return {{NAME}}.builder();
-    }
+  @Override
+  protected void setValue(
+      {{NAME}}.{{NAME}}Builder builder,
+      String tag,
+      String type,
+      JsonParser p,
+      DeserializationContext ctxt)
+      throws IOException {
+    builder.value({{SUPER_CALL}});
+  }
 
-    @Override
-    protected void setValue({{NAME}}.{{NAME}}Builder builder, String tag, String type, JsonParser p, DeserializationContext ctxt) throws IOException {
-        builder.value({{SUPER_CALL}});
-    }
-
-    @Override
-    protected {{NAME}} build({{NAME}}.{{NAME}}Builder builder) {
-        return builder.build();
-    }
+  @Override
+  protected {{NAME}} build(
+      {{NAME}}.{{NAME}}Builder builder) {
+    return builder.build();
+  }
 }

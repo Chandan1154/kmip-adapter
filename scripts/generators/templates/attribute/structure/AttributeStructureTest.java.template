@@ -1,5 +1,6 @@
 package org.purplebean.kmip.{{pdot}};
 
+import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.purplebean.kmip.api.EncodingType;
 import org.purplebean.kmip.api.KmipDataType;
@@ -9,102 +10,102 @@ import org.purplebean.kmip.model.core.type.AttributeValue;
 import org.purplebean.kmip.test.suite.AbstractKmipStructureTestSuite;
 import org.purplebean.kmip.test.suite.KmipAttributeTestSuite;
 
-import java.util.List;
-
 @DisplayName("{{ATTRIBUTE_NAME}} Domain Tests")
-class {{ATTRIBUTE_NAME}}Test extends AbstractKmipStructureTestSuite<{{ATTRIBUTE_NAME}}> implements KmipAttributeTestSuite<{{ATTRIBUTE_NAME}}> {
+class {{ATTRIBUTE_NAME}}Test
+    extends AbstractKmipStructureTestSuite<{{ATTRIBUTE_NAME}}>
+    implements KmipAttributeTestSuite<{{ATTRIBUTE_NAME}}> {
 
-    @Override
-    protected void setupDefaultSpec() {
-        defaultSpec = {{DEFAULT_SPEC}};
-    }
+  @Override
+  protected void setupDefaultSpec() {
+    defaultSpec = {{DEFAULT_SPEC}};
+  }
 
-    @Override
-    public Class<{{ATTRIBUTE_NAME}}> type() {
-        return {{ATTRIBUTE_NAME}}.class;
-    }
+  @Override
+  public Class<{{ATTRIBUTE_NAME}}> type() {
+    return {{ATTRIBUTE_NAME}}.class;
+  }
 
-    @Override
-    public {{ATTRIBUTE_NAME}} createDefault() {
-        // TODO: Create a default instance of the attribute structure
-        return {{ATTRIBUTE_NAME}}.of();
-    }
+  @Override
+  public {{ATTRIBUTE_NAME}} createDefault() {
+    // TODO: Create a default instance of the attribute structure
+    return {{ATTRIBUTE_NAME}}.of();
+  }
 
-    @Override
-    public EncodingType expectedEncodingType() {
-        return EncodingType.STRUCTURE;
-    }
+  @Override
+  public EncodingType expectedEncodingType() {
+    return EncodingType.STRUCTURE;
+  }
 
-    @Override
-    public int expectedMinComponentCount() {
-        return 0;
-    }
+  @Override
+  public int expectedMinComponentCount() {
+    return 0;
+  }
 
-    @Override
-    public void validateComponents(List<KmipDataType> values) {
-        // TODO: Validate component as per the structure design
-        // Example:
-        // assertThat(values.get(0)).isInstanceOf(AlternativeNameValue.class);
-        // assertThat(values.get(1)).isInstanceOf(AlternativeNameType.class);
-    }
+  @Override
+  public void validateComponents(List<KmipDataType> values) {
+    // TODO: Validate component as per the structure design
+    // Example:
+    // assertThat(values.get(0)).isInstanceOf(AlternativeNameValue.class);
+    // assertThat(values.get(1)).isInstanceOf(AlternativeNameType.class);
+  }
 
-    @Override
-    public boolean expectAlwaysPresent() {
-        return false;  // TODO: Adjust as needed
-    }
+  @Override
+  public boolean expectAlwaysPresent() {
+    return false; // TODO: Adjust as needed
+  }
 
-    @Override
-    public boolean expectServerInitializable() {
-        return true;  // TODO: Adjust as needed
-    }
+  @Override
+  public boolean expectServerInitializable() {
+    return true; // TODO: Adjust as needed
+  }
 
-    @Override
-    public boolean expectClientInitializable() {
-        return false;  // TODO: Adjust as needed
-    }
+  @Override
+  public boolean expectClientInitializable() {
+    return false; // TODO: Adjust as needed
+  }
 
-    @Override
-    public boolean expectClientDeletable() {
-        return false;  // TODO: Adjust as needed
-    }
+  @Override
+  public boolean expectClientDeletable() {
+    return false; // TODO: Adjust as needed
+  }
 
-    @Override
-    public boolean expectMultiInstanceAllowed() {
-        return true;  // TODO: Adjust as needed
-    }
+  @Override
+  public boolean expectMultiInstanceAllowed() {
+    return true; // TODO: Adjust as needed
+  }
 
-    @Override
-    public State stateForServerModifiableTrue() {
-        return null;  // TODO: Adjust as needed
-    }
+  @Override
+  public State stateForServerModifiableTrue() {
+    return null; // TODO: Adjust as needed
+  }
 
-    @Override
-    public State stateForServerModifiableFalse() {
-        return null;  // TODO: Adjust as needed
-    }
+  @Override
+  public State stateForServerModifiableFalse() {
+    return null; // TODO: Adjust as needed
+  }
 
-    @Override
-    public State stateForClientModifiableTrue() {
-        return null;  // TODO: Adjust as needed
-    }
+  @Override
+  public State stateForClientModifiableTrue() {
+    return null; // TODO: Adjust as needed
+  }
 
-    @Override
-    public State stateForClientModifiableFalse() {
-        return null; // TODO: Adjust as needed
-    }
+  @Override
+  public State stateForClientModifiableFalse() {
+    return null; // TODO: Adjust as needed
+  }
 
-    @Override
-    public AttributeValue expectedAttributeValue() {
-        return AttributeValue.ofStructure(createDefault().getValue());
-    }
+  @Override
+  public AttributeValue expectedAttributeValue() {
+    return AttributeValue.ofStructure(createDefault().getValue());
+  }
 
-    @Override
-    public void attribute_serverModifiable_respectsState() {
-     // TODO: Adjust as needed or remove to use inherited
-    }
+  @Override
+  public void attribute_serverModifiable_respectsState() {
+    // TODO: Adjust as needed or remove to use inherited
+  }
 
-    @Override
-    public void attribute_clientModifiable_respectsState() {
-     // TODO: Adjust as needed or remove to use inherited
-    }
+  @Override
+  public void attribute_clientModifiable_respectsState() {
+    // TODO: Adjust as needed or remove to use inherited
+  }
 }

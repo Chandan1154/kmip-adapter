@@ -2,50 +2,53 @@ package org.purplebean.kmip.codec.xml.deserializer.{{pdot}};
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
-import org.purplebean.kmip.*;
+import java.io.IOException;
 import org.purplebean.kmip.api.*;
+import org.purplebean.kmip.codec.xml.deserializer.api.AbstractKmipDataTypeXmlDeserializer;
 import org.purplebean.kmip.model.core.enumeration.*;
 import org.purplebean.kmip.model.core.structure.*;
 import org.purplebean.kmip.model.core.type.*;
-import java.math.BigInteger;
-import java.nio.ByteBuffer;
-import java.time.OffsetDateTime;
-import java.time.ZoneOffset;
-import org.purplebean.kmip.codec.xml.deserializer.api.AbstractKmipDataTypeXmlDeserializer;
 import org.purplebean.kmip.{{pdot}}.{{STRUCTURE_NAME}};
 
-import java.io.IOException;
+/** XML deserializer for {@link {{STRUCTURE_NAME}}}. */
+public class {{STRUCTURE_NAME}}XmlDeserializer
+    extends AbstractKmipDataTypeXmlDeserializer<
+        {{STRUCTURE_NAME}},
+        {{STRUCTURE_NAME}}.{{STRUCTURE_NAME}}Builder> {
 
-/**
- * XML deserializer for {@link {{STRUCTURE_NAME}}}.
- */
-public class {{STRUCTURE_NAME}}XmlDeserializer extends AbstractKmipDataTypeXmlDeserializer<{{STRUCTURE_NAME}}, {{STRUCTURE_NAME}}.{{STRUCTURE_NAME}}Builder> {
+  /** Constructs a new deserializer. */
+  public {{STRUCTURE_NAME}}XmlDeserializer() {
+    super(
+        {{STRUCTURE_NAME}}.kmipTag,
+        {{STRUCTURE_NAME}}.encodingType);
+  }
 
-    /**
-     * Constructs a new {@link {{STRUCTURE_NAME}}XmlDeserializer}.
-     */
-    public {{STRUCTURE_NAME}}XmlDeserializer() {
-        super({{STRUCTURE_NAME}}.kmipTag, {{STRUCTURE_NAME}}.encodingType);
-    }
+  @Override
+  protected {{STRUCTURE_NAME}}.{{STRUCTURE_NAME}}Builder
+      createBuilder() {
+    return {{STRUCTURE_NAME}}.builder();
+  }
 
-    @Override
-    protected {{STRUCTURE_NAME}}.{{STRUCTURE_NAME}}Builder createBuilder() {
-        return {{STRUCTURE_NAME}}.builder();
-    }
+  @Override
+  protected void setValue(
+      {{STRUCTURE_NAME}}.{{STRUCTURE_NAME}}Builder builder,
+      String tag,
+      String type,
+      JsonParser p,
+      DeserializationContext ctxt)
+      throws IOException {
+    // TODO: Implement setting values on the builder based on the tag
+    // KmipTag.Value nodeTag = KmipTag.fromName(tag);
+    // switch (nodeTag) {
+    //     case KmipTag.Standard.FIELD_1 -> builder.field1(ctxt.readValue(p, Field1.class));
+    //     case KmipTag.Standard.FIELD_2 -> builder.field2(ctxt.readValue(p, Field2.class));
+    //     default -> throw new IllegalArgumentException("Unsupported tag: " + nodeTag);
+    // }
+  }
 
-    @Override
-    protected void setValue({{STRUCTURE_NAME}}.{{STRUCTURE_NAME}}Builder builder, String tag, String type, JsonParser p, DeserializationContext ctxt) throws IOException {
-        // TODO: Implement setting values on the builder based on the tag
-        // KmipTag.Value nodeTag = KmipTag.fromName(tag);
-        // switch (nodeTag) {
-        //     case KmipTag.Standard.FIELD_1 -> builder.field1(ctxt.readValue(p, Field1.class));
-        //     case KmipTag.Standard.FIELD_2 -> builder.field2(ctxt.readValue(p, Field2.class));
-        //     default -> throw new IllegalArgumentException("Unsupported tag: " + nodeTag);
-        // }
-    }
-
-    @Override
-    protected {{STRUCTURE_NAME}} build({{STRUCTURE_NAME}}.{{STRUCTURE_NAME}}Builder builder) {
-        return builder.build();
-    }
+  @Override
+  protected {{STRUCTURE_NAME}} build(
+      {{STRUCTURE_NAME}}.{{STRUCTURE_NAME}}Builder builder) {
+    return builder.build();
+  }
 }

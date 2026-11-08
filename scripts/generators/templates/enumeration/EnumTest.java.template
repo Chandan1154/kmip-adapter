@@ -1,120 +1,138 @@
 package org.purplebean.kmip.{{pdot}};
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+
+import java.util.Set;
 import org.junit.jupiter.api.DisplayName;
-import org.purplebean.kmip.*;
 import org.purplebean.kmip.api.*;
 import org.purplebean.kmip.model.core.enumeration.*;
 import org.purplebean.kmip.model.core.structure.*;
 import org.purplebean.kmip.model.core.type.*;
-import java.math.BigInteger;
-import java.nio.ByteBuffer;
-import java.time.OffsetDateTime;
-import java.time.ZoneOffset;
 import org.purplebean.kmip.test.suite.AbstractKmipEnumerationTestSuite;
 
-
-import java.util.Set;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
-
 @DisplayName("{{ENUM_NAME}} Domain Tests")
-class {{ENUM_NAME}}Test extends AbstractKmipEnumerationTestSuite<{{ENUM_NAME}}> {
+class {{ENUM_NAME}}Test
+    extends AbstractKmipEnumerationTestSuite<{{ENUM_NAME}}> {
 
-    @Override
-    protected void setupDefaultSpec() {
-        defaultSpec = {{DEFAULT_SPEC}};
+  private static final Set<KmipSpec> UNKNOWN_ONLY = Set.of(KmipSpec.UnknownVersion);
+
+  @Override
+  protected void setupDefaultSpec() {
+    defaultSpec = {{DEFAULT_SPEC}};
+  }
+
+  @Override
+  protected Class<{{ENUM_NAME}}> type() {
+    return {{ENUM_NAME}}.class;
+  }
+
+  @Override
+  protected {{ENUM_NAME}} createDefault() {
+    // TODO: Replace with an actual Standard enum value, e.g., SOME_VALUE.inst();
+    // For now, using the first available value if any exist.
+    if ({{ENUM_NAME}}.Standard.values().length > 0) {
+      return {{ENUM_NAME}}.Standard.values()[0].inst();
     }
+    // Fallback for enums with no predefined Standard values (e.g., during initial generation)
+    return {{ENUM_NAME}}
+        .register(0x80000001, "X-Default-Value", UNKNOWN_ONLY)
+        .inst();
+  }
 
-    @Override
-    protected Class<{{ENUM_NAME}}> type() {
-        return {{ENUM_NAME}}.class;
+  @Override
+  protected {{ENUM_NAME}} createEqualToDefault() {
+    // TODO: Replace with an actual Standard enum value equal to the one in createDefault()
+    if ({{ENUM_NAME}}.Standard.values().length > 0) {
+      return {{ENUM_NAME}}.Standard.values()[0].inst();
     }
+    return {{ENUM_NAME}}
+        .register(0x80000001, "X-Default-Value", UNKNOWN_ONLY)
+        .inst();
+  }
 
-    @Override
-    protected {{ENUM_NAME}} createDefault() {
-        // TODO: Replace with an actual Standard enum value, e.g., {{ENUM_NAME}}.Standard.SOME_VALUE.inst();
-        // For now, using the first available value if any exist.
-        if ({{ENUM_NAME}}.Standard.values().length > 0) {
-            return {{ENUM_NAME}}.Standard.values()[0].inst();
-        }
-        // Fallback for enums with no predefined Standard values (e.g., during initial generation)
-        return {{ENUM_NAME}}.register(0x80000001, "X-Default-Value", Set.of(KmipSpec.UnknownVersion)).inst();
+  @Override
+  protected {{ENUM_NAME}} createDifferentFromDefault() {
+    // TODO: Replace with an actual Standard enum value different from the one in createDefault()
+    if ({{ENUM_NAME}}.Standard.values().length > 1) {
+      return {{ENUM_NAME}}.Standard.values()[1].inst();
     }
+    // Fallback for enums with only one or no predefined Standard values
+    return {{ENUM_NAME}}
+        .register(0x80000002, "X-Variant-Value", UNKNOWN_ONLY)
+        .inst();
+  }
 
-    @Override
-    protected {{ENUM_NAME}} createEqualToDefault() {
-        // TODO: Replace with an actual Standard enum value equal to the one in createDefault()
-        if ({{ENUM_NAME}}.Standard.values().length > 0) {
-            return {{ENUM_NAME}}.Standard.values()[0].inst();
-        }
-        return {{ENUM_NAME}}.register(0x80000001, "X-Default-Value", Set.of(KmipSpec.UnknownVersion)).inst();
-    }
+  @Override
+  protected EncodingType expectedEncodingType() {
+    return EncodingType.ENUMERATION;
+  }
 
-    @Override
-    protected {{ENUM_NAME}} createDifferentFromDefault() {
-        // TODO: Replace with an actual Standard enum value different from the one in createDefault()
-        if ({{ENUM_NAME}}.Standard.values().length > 1) {
-            return {{ENUM_NAME}}.Standard.values()[1].inst();
-        }
-        // Fallback for enums with only one or no predefined Standard values
-        return {{ENUM_NAME}}.register(0x80000002, "X-Variant-Value", Set.of(KmipSpec.UnknownVersion)).inst();
-    }
+  @Override
+  protected boolean supportsRegistryBehavior() {
+    // Set to true if the enum supports custom extension values and lookup methods
+    return true; // Assuming all generated enums will support this
+  }
 
-    @Override
-    protected EncodingType expectedEncodingType() {
-        return EncodingType.ENUMERATION;
-    }
-
-    @Override
-    protected boolean supportsRegistryBehavior() {
-        // Set to true if the enum supports custom extension values and lookup methods
-        return true; // Assuming all generated enums will support this
-    }
-
-    @Override
-    protected void assertLookupBehaviour() {
-        // TODO: Customize these assertions based on actual enum values and expected lookup behavior
-        // Example:
-        withKmipSpec(
-                KmipSpec.UnknownVersion,
-                () -> {
-                    {{ENUM_NAME}}.Value byName = {{ENUM_NAME}}.fromName("X-Enum-Custom");
-                    {{ENUM_NAME}}.Value byVal = {{ENUM_NAME}}.fromValue(0x80000010);
-                    assertThat(byName.getDescription()).isEqualTo("X-Enum-Custom");
-                    assertThat(byVal.getValue()).isEqualTo(0x80000010);
-                }
-        );
-
-        withKmipSpec(
-                KmipSpec.UnsupportedVersion,
-                () -> assertThatThrownBy(() -> {{ENUM_NAME}}.fromName("X-Enum-Custom"))
-        );
-    }
-
-    @Override
-    protected void assertEnumerationRegistryBehavior() {
-        // TODO: Customize these assertions based on actual enum values and expected registry behavior
-        // Example:
-        {{ENUM_NAME}}.Value custom = {{ENUM_NAME}}.register(0x80000010, "X-Enum-Custom", Set.of(KmipSpec.UnknownVersion));
-        assertThat(custom.isCustom()).isTrue();
-        assertThat(custom.getDescription()).isEqualTo("X-Enum-Custom");
-
-        withKmipSpec(KmipSpec.UnknownVersion, () -> {
-            assertThat(custom.isSupported()).isTrue();
-        });
-        withKmipSpec(KmipSpec.UnsupportedVersion, () -> {
-            assertThat(custom.isSupported()).isFalse();
+  @Override
+  protected void assertLookupBehaviour() {
+    // TODO: Customize these assertions based on actual enum values and expected lookup behavior
+    // Example:
+    withKmipSpec(
+        KmipSpec.UnknownVersion,
+        () -> {
+          {{ENUM_NAME}}.Value byName =
+              {{ENUM_NAME}}.fromName("X-Enum-Custom");
+          {{ENUM_NAME}}.Value byVal =
+              {{ENUM_NAME}}.fromValue(0x80000010);
+          assertThat(byName.getDescription()).isEqualTo("X-Enum-Custom");
+          assertThat(byVal.getValue()).isEqualTo(0x80000010);
         });
 
-        // Negative cases: invalid range, empty description, empty versions
-        assertThatThrownBy(() -> {{ENUM_NAME}}.register(0x7FFFFFFF, "Bad-Range", Set.of(KmipSpec.UnknownVersion)))
-                .isInstanceOf(IllegalArgumentException.class);
-        assertThatThrownBy(() -> {{ENUM_NAME}}.register(0x00000001, "Bad-Range", Set.of(KmipSpec.UnknownVersion)))
-                .isInstanceOf(IllegalArgumentException.class);
-        assertThatThrownBy(() -> {{ENUM_NAME}}.register(0x80000011, "   ", Set.of(KmipSpec.UnknownVersion)))
-                .isInstanceOf(IllegalArgumentException.class);
-        assertThatThrownBy(() -> {{ENUM_NAME}}.register(0x80000012, "X-Empty-Versions", Set.of()))
-                .isInstanceOf(IllegalArgumentException.class);
-    }
+    withKmipSpec(
+        KmipSpec.UnsupportedVersion,
+        () ->
+            assertThatThrownBy(
+                () -> {{ENUM_NAME}}.fromName("X-Enum-Custom")));
+  }
+
+  @Override
+  protected void assertEnumerationRegistryBehavior() {
+    // TODO: Customize these assertions based on actual enum values and expected registry behavior
+    // Example:
+    {{ENUM_NAME}}.Value custom =
+        {{ENUM_NAME}}.register(
+                0x80000010, "X-Enum-Custom", UNKNOWN_ONLY);
+    assertThat(custom.isCustom()).isTrue();
+    assertThat(custom.getDescription()).isEqualTo("X-Enum-Custom");
+
+    withKmipSpec(
+        KmipSpec.UnknownVersion,
+        () -> {
+          assertThat(custom.isSupported()).isTrue();
+        });
+    withKmipSpec(
+        KmipSpec.UnsupportedVersion,
+        () -> {
+          assertThat(custom.isSupported()).isFalse();
+        });
+
+    // Negative cases: invalid range, empty description, empty versions
+    assertThatThrownBy(
+            () -> {{ENUM_NAME}}.register(
+                0x7FFFFFFF, "Bad-Range", UNKNOWN_ONLY))
+        .isInstanceOf(IllegalArgumentException.class);
+    assertThatThrownBy(
+            () -> {{ENUM_NAME}}.register(
+                0x00000001, "Bad-Range", UNKNOWN_ONLY))
+        .isInstanceOf(IllegalArgumentException.class);
+    assertThatThrownBy(
+            () ->
+                {{ENUM_NAME}}.register(
+                    0x80000011, "   ", UNKNOWN_ONLY))
+        .isInstanceOf(IllegalArgumentException.class);
+    assertThatThrownBy(() -> {{ENUM_NAME}}.register(
+                0x80000012, "X-Empty-Versions", Set.of()))
+        .isInstanceOf(IllegalArgumentException.class);
+  }
 }

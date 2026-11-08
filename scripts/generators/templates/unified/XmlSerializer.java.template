@@ -1,19 +1,12 @@
 package org.purplebean.kmip.codec.xml.serializer.{{pdot}};
 
-import org.purplebean.kmip.*;
 import org.purplebean.kmip.api.*;
+import org.purplebean.kmip.codec.xml.serializer.api.AbstractKmipDataTypeXmlSerializer;
 import org.purplebean.kmip.model.core.enumeration.*;
 import org.purplebean.kmip.model.core.structure.*;
 import org.purplebean.kmip.model.core.type.*;
-import java.math.BigInteger;
-import java.nio.ByteBuffer;
-import java.time.OffsetDateTime;
-import java.time.ZoneOffset;
-import org.purplebean.kmip.codec.xml.serializer.api.AbstractKmipDataTypeXmlSerializer;
 import org.purplebean.kmip.{{pdot}}.{{NAME}};
 
-/**
- * XML serializer for {@link {{NAME}}}.
- */
-public class {{NAME}}XmlSerializer extends AbstractKmipDataTypeXmlSerializer<{{NAME}}> {
-}
+/** XML serializer for {@link {{NAME}}}. */
+public class {{NAME}}XmlSerializer
+    extends AbstractKmipDataTypeXmlSerializer<{{NAME}}> {}

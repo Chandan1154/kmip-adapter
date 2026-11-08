@@ -1,51 +1,54 @@
 package org.purplebean.kmip.codec.ttlv.deserializer.{{pdot}};
 
-import org.purplebean.kmip.*;
+import java.io.IOException;
+import java.nio.ByteBuffer;
 import org.purplebean.kmip.api.*;
+import org.purplebean.kmip.codec.ttlv.deserializer.api.AbstractKmipDataTypeTtlvDeserializer;
+import org.purplebean.kmip.codec.ttlv.mapper.TtlvMapper;
 import org.purplebean.kmip.model.core.enumeration.*;
 import org.purplebean.kmip.model.core.structure.*;
 import org.purplebean.kmip.model.core.type.*;
-import java.math.BigInteger;
-import java.nio.ByteBuffer;
-import java.time.OffsetDateTime;
-import java.time.ZoneOffset;
-import org.purplebean.kmip.codec.ttlv.deserializer.api.AbstractKmipDataTypeTtlvDeserializer;
-import org.purplebean.kmip.codec.ttlv.mapper.TtlvMapper;
 import org.purplebean.kmip.{{pdot}}.{{STRUCTURE_NAME}};
 
-import java.io.IOException;
-import java.nio.ByteBuffer;
+/** TTLV deserializer for {@link {{STRUCTURE_NAME}}}. */
+public class {{STRUCTURE_NAME}}TtlvDeserializer
+    extends AbstractKmipDataTypeTtlvDeserializer<
+        {{STRUCTURE_NAME}},
+        {{STRUCTURE_NAME}}.{{STRUCTURE_NAME}}Builder> {
 
-/**
- * TTLV deserializer for {@link {{STRUCTURE_NAME}}}.
- */
-public class {{STRUCTURE_NAME}}TtlvDeserializer extends AbstractKmipDataTypeTtlvDeserializer<{{STRUCTURE_NAME}}, {{STRUCTURE_NAME}}.{{STRUCTURE_NAME}}Builder> {
+  /** Constructs a new deserializer. */
+  public {{STRUCTURE_NAME}}TtlvDeserializer() {
+    super(
+        {{STRUCTURE_NAME}}.kmipTag,
+        {{STRUCTURE_NAME}}.encodingType);
+  }
 
-    /**
-     * Constructs a new {@link {{STRUCTURE_NAME}}TtlvDeserializer}.
-     */
-    public {{STRUCTURE_NAME}}TtlvDeserializer() {
-        super({{STRUCTURE_NAME}}.kmipTag, {{STRUCTURE_NAME}}.encodingType);
-    }
+  @Override
+  protected {{STRUCTURE_NAME}}.{{STRUCTURE_NAME}}Builder
+      createBuilder() {
+    return {{STRUCTURE_NAME}}.builder();
+  }
 
-    @Override
-    protected {{STRUCTURE_NAME}}.{{STRUCTURE_NAME}}Builder createBuilder() {
-        return {{STRUCTURE_NAME}}.builder();
-    }
+  @Override
+  protected void setValue(
+      {{STRUCTURE_NAME}}.{{STRUCTURE_NAME}}Builder builder,
+      byte[] tag,
+      byte type,
+      ByteBuffer p,
+      TtlvMapper mapper)
+      throws IOException {
+    // TODO: Implement setting values on the builder based on the tag
+    // KmipTag.Value nodeTag = KmipTag.fromBytes(tag);
+    // switch (nodeTag) {
+    //     case KmipTag.Standard.FIELD_1 -> builder.field1(mapper.readValue(p, Field1.class));
+    //     case KmipTag.Standard.FIELD_2 -> builder.field2(mapper.readValue(p, Field2.class));
+    //     default -> throw new IllegalArgumentException("Unsupported tag: " + nodeTag);
+    // }
+  }
 
-    @Override
-    protected void setValue({{STRUCTURE_NAME}}.{{STRUCTURE_NAME}}Builder builder, byte[] tag, byte type, ByteBuffer p, TtlvMapper mapper) throws IOException {
-        // TODO: Implement setting values on the builder based on the tag
-        // KmipTag.Value nodeTag = KmipTag.fromBytes(tag);
-        // switch (nodeTag) {
-        //     case KmipTag.Standard.FIELD_1 -> builder.field1(mapper.readValue(p, Field1.class));
-        //     case KmipTag.Standard.FIELD_2 -> builder.field2(mapper.readValue(p, Field2.class));
-        //     default -> throw new IllegalArgumentException("Unsupported tag: " + nodeTag);
-        // }
-    }
-
-    @Override
-    protected {{STRUCTURE_NAME}} build({{STRUCTURE_NAME}}.{{STRUCTURE_NAME}}Builder builder) {
-        return builder.build();
-    }
+  @Override
+  protected {{STRUCTURE_NAME}} build(
+      {{STRUCTURE_NAME}}.{{STRUCTURE_NAME}}Builder builder) {
+    return builder.build();
+  }
 }

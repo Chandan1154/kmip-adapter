@@ -1,33 +1,29 @@
 package org.purplebean.kmip.codec.{{format}}.{{pdot}};
 
 import org.junit.jupiter.api.DisplayName;
-import org.purplebean.kmip.*;
 import org.purplebean.kmip.api.*;
 import org.purplebean.kmip.model.core.enumeration.*;
 import org.purplebean.kmip.model.core.structure.*;
 import org.purplebean.kmip.model.core.type.*;
-import java.math.BigInteger;
-import java.nio.ByteBuffer;
-import java.time.OffsetDateTime;
-import java.time.ZoneOffset;
 import org.purplebean.kmip.{{pdot}}.{{NAME}};
 import org.purplebean.kmip.test.suite.Abstract{{format_pascal}}SerializationTestSuite;
 
 @DisplayName("{{NAME}} {{format_pascal}} Serialization Tests")
-class {{suite_name}} extends Abstract{{format_pascal}}SerializationTestSuite<{{NAME}}> {
+class {{suite_name}}
+    extends Abstract{{format_pascal}}SerializationTestSuite<{{NAME}}> {
 
-    @Override
-    public Class<{{NAME}}> type() {
-        return {{NAME}}.class;
-    }
+  @Override
+  public Class<{{NAME}}> type() {
+    return {{NAME}}.class;
+  }
 
-    @Override
-    public {{NAME}} createDefault() {
-        return {{create_default}};
-    }
+  @Override
+  public {{NAME}} createDefault() {
+    return {{create_default}};
+  }
 
-    @Override
-    public {{NAME}} createVariant() {
-        return {{create_variant}};
-    }
+  @Override
+  public {{NAME}} createVariant() {
+    return {{create_variant}};
+  }
 }

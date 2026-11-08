@@ -1,73 +1,71 @@
 package org.purplebean.kmip.{{pdot}};
 
+import java.util.Set;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NonNull;
-import org.purplebean.kmip.*;
 import org.purplebean.kmip.api.*;
 import org.purplebean.kmip.model.core.enumeration.*;
 import org.purplebean.kmip.model.core.structure.*;
 import org.purplebean.kmip.model.core.type.*;
-import java.math.BigInteger;
-import java.nio.ByteBuffer;
-import java.time.OffsetDateTime;
-import java.time.ZoneOffset;
-import java.util.Set;
 
-/**
- * KMIP {{DATA_NAME}} dataType.
- */
+/** KMIP {{DATA_NAME}} dataType. */
 @Data
 @Builder(toBuilder = true)
 public class {{DATA_NAME}} implements KmipDataType {
 
-    public static final KmipTag kmipTag = KmipTag.Standard.{{DATA_NAME_SNAKE}}.inst();
-    public static final EncodingType encodingType = EncodingType.{{ENCODING_TYPE}};
-    private static final Set<KmipSpec> supportedVersions = {{SUPPORTED_VERSIONS}}; // introduced in KMIP {{KMIP_VERSION}} — extend if present in later specs
+  public static final KmipTag kmipTag =
 
-    static {
-        for (KmipSpec spec : supportedVersions) {
-            if (spec == KmipSpec.UnknownVersion || spec == KmipSpec.UnsupportedVersion) continue;
-            KmipDataType.register(spec, kmipTag.getValue(), encodingType, {{DATA_NAME}}.class);
-        }
+      KmipTag.Standard.{{DATA_NAME_SNAKE}}.inst();
+  public static final EncodingType encodingType = EncodingType.{{ENCODING_TYPE}};
+  // Introduced in KMIP {{KMIP_VERSION}}; extend if present in later specs.
+  private static final Set<KmipSpec> supportedVersions =
+      {{SUPPORTED_VERSIONS}};
+
+  static {
+    for (KmipSpec spec : supportedVersions) {
+      if (spec == KmipSpec.UnknownVersion || spec == KmipSpec.UnsupportedVersion) {
+        continue;
+      }
+      KmipDataType.register(
+          spec, kmipTag.getValue(), encodingType, {{DATA_NAME}}.class);
     }
+  }
 
-    @NonNull
-    private final {{DATA_TYPE}} value;
+  @NonNull private final {{DATA_TYPE}} value;
 
-    @Builder
-    private {{DATA_NAME}}(@NonNull {{DATA_TYPE}} value) {
-        this.value = value;
-        validate();
+  @Builder
+  private {{DATA_NAME}}(@NonNull {{DATA_TYPE}} value) {
+    this.value = value;
+    validate();
+  }
+
+  /** Returns the {@link {{DATA_NAME}}} instance wrapping the given value. */
+  public static {{DATA_NAME}} of(@NonNull {{DATA_TYPE}} value) {
+    return new {{DATA_NAME}}(value);
+  }
+
+  private void validate() {
+    if (!isSupported()) {
+      throw new IllegalArgumentException(
+          String.format("Unsupported object type for %s: %s", KmipContext.getSpec(), getKmipTag()));
     }
+    // No validation needed for this structure
+  }
 
-    /**
-     * Returns the {@link {{DATA_NAME}}} instance wrapping the given value.
-     */
-    public static {{DATA_NAME}} of(@NonNull {{DATA_TYPE}} value) {
-        return new {{DATA_NAME}}(value);
-    }
+  @Override
+  public KmipTag getKmipTag() {
+    return kmipTag;
+  }
 
-    private void validate() {
-        if (!isSupported()) {
-            throw new IllegalArgumentException(String.format("Unsupported object type for %s: %s", KmipContext.getSpec(), getKmipTag()));
-        }
-        // No validation needed for this structure
-    }
+  @Override
+  public EncodingType getEncodingType() {
+    return encodingType;
+  }
 
-    @Override
-    public KmipTag getKmipTag() {
-        return kmipTag;
-    }
-
-    @Override
-    public EncodingType getEncodingType() {
-        return encodingType;
-    }
-
-    @Override
-    public boolean isSupported() {
-        KmipSpec spec = KmipContext.getSpec();
-        return supportedVersions.contains(spec);
-    }
+  @Override
+  public boolean isSupported() {
+    KmipSpec spec = KmipContext.getSpec();
+    return supportedVersions.contains(spec);
+  }
 }

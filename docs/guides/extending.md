@@ -35,13 +35,18 @@ scripts/generators/generate.sh datatype  --all -m v3x0 --type Integer --attr Som
 scripts/generators/generate.sh structure --all -m v2x1 Constraints
 ```
 
-Run it from the repository root. `DRY_RUN=true` prints what would be written. The generator creates
+Run it from the repository root. Omitting every generation flag (`--all`, `--class`, ...)
+performs a dry run that prints what would be written. The generator creates
 the model class, six codec classes, four test classes, a benchmark subject, and appends to every
 SPI file.
 
-> Generated code is not Google-style and fails checkstyle (a fresh enum produced 419 violations).
-> Iterate with `-Dcheckstyle.skip`, then reformat before committing. A worked run-through is in
-> [First contribution](first-contribution.md).
+> Generated code is Google-style (templates are formatted with google-java-format;
+> `scripts/generators/sort_imports.py` orders imports after substitution) with one deliberate
+> exception: it imports whole packages (`org.purplebean.kmip.api.*`, `model.core.type.*`,
+> `.structure.*`, `.enumeration.*`, `lombok.*`, `java.util.*`) so you can use any model class while
+> filling in the stub. Checkstyle's `AvoidStarImport` rejects those, so before committing replace
+> each wildcard with the classes you actually use. Type names longer than about 30 characters can
+> also push a line past 100 columns; wrap those by hand. A worked run-through is in [First contribution](first-contribution.md).
 
 ## 3. Fill in the stub
 

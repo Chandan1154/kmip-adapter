@@ -209,6 +209,10 @@ render_template() {
     done
 
     printf "%s" "${content}" > "${out_file}"
+
+    if [[ "${out_file}" == *.java ]]; then
+        python3 "$(dirname "${BASH_SOURCE[0]}")/generators/sort_imports.py" "${out_file}"
+    fi
 }
 
 add_service_entry() {

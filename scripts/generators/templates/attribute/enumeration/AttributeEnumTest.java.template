@@ -1,5 +1,9 @@
 package org.purplebean.kmip.{{pdot}};
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+
+import java.util.Set;
 import org.junit.jupiter.api.DisplayName;
 import org.purplebean.kmip.api.EncodingType;
 import org.purplebean.kmip.api.KmipSpec;
@@ -8,169 +12,189 @@ import org.purplebean.kmip.model.core.type.AttributeValue;
 import org.purplebean.kmip.test.suite.AbstractKmipEnumerationTestSuite;
 import org.purplebean.kmip.test.suite.KmipAttributeTestSuite;
 
-
-import java.util.Set;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
-
 @DisplayName("{{ATTRIBUTE_NAME}} Domain Tests")
-class {{ATTRIBUTE_NAME}}Test extends AbstractKmipEnumerationTestSuite<{{ATTRIBUTE_NAME}}> implements KmipAttributeTestSuite<{{ATTRIBUTE_NAME}}> {
+class {{ATTRIBUTE_NAME}}Test
+    extends AbstractKmipEnumerationTestSuite<{{ATTRIBUTE_NAME}}>
+    implements KmipAttributeTestSuite<{{ATTRIBUTE_NAME}}> {
 
-    @Override
-    protected void setupDefaultSpec() {
-        defaultSpec = {{DEFAULT_SPEC}};
+  private static final Set<KmipSpec> UNKNOWN_ONLY = Set.of(KmipSpec.UnknownVersion);
+
+  @Override
+  protected void setupDefaultSpec() {
+    defaultSpec = {{DEFAULT_SPEC}};
+  }
+
+  @Override
+  protected Class<{{ATTRIBUTE_NAME}}> type() {
+    return {{ATTRIBUTE_NAME}}.class;
+  }
+
+  @Override
+  public {{ATTRIBUTE_NAME}} createDefault() {
+    // TODO: Replace with an actual Standard enum value
+    if ({{ATTRIBUTE_NAME}}.Standard.values().length > 0) {
+      return {{ATTRIBUTE_NAME}}.Standard.values()[0].inst();
     }
+    return {{ATTRIBUTE_NAME}}
+        .register(0x80000001, "X-Default-Value", UNKNOWN_ONLY)
+        .inst();
+  }
 
-    @Override
-    protected Class<{{ATTRIBUTE_NAME}}> type() {
-        return {{ATTRIBUTE_NAME}}.class;
+  @Override
+  protected {{ATTRIBUTE_NAME}} createEqualToDefault() {
+    // TODO: Replace with an actual Standard enum value
+    if ({{ATTRIBUTE_NAME}}.Standard.values().length > 0) {
+      return {{ATTRIBUTE_NAME}}.Standard.values()[0].inst();
     }
+    return {{ATTRIBUTE_NAME}}
+        .register(0x80000001, "X-Default-Value", UNKNOWN_ONLY)
+        .inst();
+  }
 
-    @Override
-    protected {{ATTRIBUTE_NAME}} createDefault() {
-        // TODO: Replace with an actual Standard enum value
-        if ({{ATTRIBUTE_NAME}}.Standard.values().length > 0) {
-            return {{ATTRIBUTE_NAME}}.Standard.values()[0].inst();
-        }
-        return {{ATTRIBUTE_NAME}}.register(0x80000001, "X-Default-Value", Set.of(KmipSpec.UnknownVersion)).inst();
+  @Override
+  protected {{ATTRIBUTE_NAME}} createDifferentFromDefault() {
+    // TODO: Replace with an actual Standard enum value
+    if ({{ATTRIBUTE_NAME}}.Standard.values().length > 1) {
+      return {{ATTRIBUTE_NAME}}.Standard.values()[1].inst();
     }
+    return {{ATTRIBUTE_NAME}}
+        .register(0x80000002, "X-Variant-Value", UNKNOWN_ONLY)
+        .inst();
+  }
 
-    @Override
-    protected {{ATTRIBUTE_NAME}} createEqualToDefault() {
-        // TODO: Replace with an actual Standard enum value
-        if ({{ATTRIBUTE_NAME}}.Standard.values().length > 0) {
-            return {{ATTRIBUTE_NAME}}.Standard.values()[0].inst();
-        }
-        return {{ATTRIBUTE_NAME}}.register(0x80000001, "X-Default-Value", Set.of(KmipSpec.UnknownVersion)).inst();
-    }
+  @Override
+  protected EncodingType expectedEncodingType() {
+    return EncodingType.ENUMERATION;
+  }
 
-    @Override
-    protected {{ATTRIBUTE_NAME}} createDifferentFromDefault() {
-        // TODO: Replace with an actual Standard enum value
-        if ({{ATTRIBUTE_NAME}}.Standard.values().length > 1) {
-            return {{ATTRIBUTE_NAME}}.Standard.values()[1].inst();
-        }
-        return {{ATTRIBUTE_NAME}}.register(0x80000002, "X-Variant-Value", Set.of(KmipSpec.UnknownVersion)).inst();
-    }
+  @Override
+  protected boolean supportsRegistryBehavior() {
+    return true; // TODO: Adjust as needed
+  }
 
-    @Override
-    protected EncodingType expectedEncodingType() {
-        return EncodingType.ENUMERATION;
-    }
+  // Implementation of KmipAttributeTestSuite methods
+  @Override
+  public boolean expectAlwaysPresent() {
+    return false; // TODO: Adjust as needed
+  }
 
-    @Override
-    protected boolean supportsRegistryBehavior() {
-        return true; // TODO: Adjust as needed
-    }
+  @Override
+  public boolean expectServerInitializable() {
+    return false; // TODO: Adjust as needed
+  }
 
-    // Implementation of KmipAttributeTestSuite methods
-    @Override
-    public boolean expectAlwaysPresent() {
-        return false; // TODO: Adjust as needed
-    }
+  @Override
+  public boolean expectClientInitializable() {
+    return false; // TODO: Adjust as needed
+  }
 
-    @Override
-    public boolean expectServerInitializable() {
-        return false; // TODO: Adjust as needed
-    }
+  @Override
+  public boolean expectClientDeletable() {
+    return false; // TODO: Adjust as needed
+  }
 
-    @Override
-    public boolean expectClientInitializable() {
-        return false; // TODO: Adjust as needed
-    }
+  @Override
+  public boolean expectMultiInstanceAllowed() {
+    return false; // TODO: Adjust as needed
+  }
 
-    @Override
-    public boolean expectClientDeletable() {
-        return false; // TODO: Adjust as needed
-    }
+  @Override
+  public State stateForServerModifiableTrue() {
+    return null; // TODO: Adjust as needed
+  }
 
-    @Override
-    public boolean expectMultiInstanceAllowed() {
-        return false; // TODO: Adjust as needed
-    }
+  @Override
+  public State stateForServerModifiableFalse() {
+    return State.Standard.PRE_ACTIVE.inst(); // TODO: Adjust as needed
+  }
 
-    @Override
-    public State stateForServerModifiableTrue() {
-        return null; // TODO: Adjust as needed
-    }
+  @Override
+  public State stateForClientModifiableTrue() {
+    return null; // TODO: Adjust as needed
+  }
 
-    @Override
-    public State stateForServerModifiableFalse() {
-        return State.Standard.PRE_ACTIVE.inst(); // TODO: Adjust as needed
-    }
+  @Override
+  public State stateForClientModifiableFalse() {
+    return State.Standard.ACTIVE.inst(); // TODO: Adjust as needed
+  }
 
-    @Override
-    public State stateForClientModifiableTrue() {
-        return null; // TODO: Adjust as needed
-    }
+  @Override
+  public AttributeValue expectedAttributeValue() {
+    // TODO: Return expected AttributeValue
+    // Example: AttributeValue.ofEnumeration(Standard.values()[0])
+    return null;
+  }
 
-    @Override
-    public State stateForClientModifiableFalse() {
-        return State.Standard.ACTIVE.inst(); // TODO: Adjust as needed
-    }
+  @Override
+  public void attribute_serverModifiable_respectsState() {
+    // TODO: Implement if server modifiable
+  }
 
-    @Override
-    public AttributeValue expectedAttributeValue() {
-        // TODO: Return expected AttributeValue
-        // Example: return AttributeValue.ofEnumeration({{ATTRIBUTE_NAME}}.Standard.values()[0]);
-        return null;
-    }
+  @Override
+  public void attribute_clientModifiable_respectsState() {
+    // TODO: Implement if client modifiable
+  }
 
-    @Override
-    public void attribute_serverModifiable_respectsState() {
-        // TODO: Implement if server modifiable
-    }
-
-    @Override
-    public void attribute_clientModifiable_respectsState() {
-        // TODO: Implement if client modifiable
-    }
-
-    @Override
-    protected void assertLookupBehaviour() {
-        // TODO: Customize these assertions based on actual enum values and expected lookup behavior
-        // Lookup by name/value
-        withKmipSpec(
-                KmipSpec.UnknownVersion,
-                () -> {
-                    {{ATTRIBUTE_NAME}}.Value byName = {{ATTRIBUTE_NAME}}.fromName("X-Enum-Custom");
-                    {{ATTRIBUTE_NAME}}.Value byVal = {{ATTRIBUTE_NAME}}.fromValue(0x80000010);
-                    assertThat(byName.getDescription()).isEqualTo("X-Enum-Custom");
-                    assertThat(byVal.getValue()).isEqualTo(0x80000010);
-                }
-        );
-
-        // Lookup by name/value with unsupported version
-        withKmipSpec(
-                KmipSpec.UnsupportedVersion,
-                () -> assertThatThrownBy(() -> {{ATTRIBUTE_NAME}}.fromName("X-Enum-Custom"))
-        );
-    }
-
-    @Override
-    protected void assertEnumerationRegistryBehavior() {
-        // TODO: Customize these assertions based on actual enum values and expected registry behavior
-        // Valid registration in {{ATTRIBUTE_NAME}} requires 8XXXXXXX (hex) range per implementation
-        {{ATTRIBUTE_NAME}}.Value custom = {{ATTRIBUTE_NAME}}.register(0x80000010, "X-Enum-Custom", Set.of(KmipSpec.UnknownVersion));
-        assertThat(custom.isCustom()).isTrue();
-        assertThat(custom.getDescription()).isEqualTo("X-Enum-Custom");
-
-        withKmipSpec(KmipSpec.UnknownVersion, () -> {
-            assertThat(custom.isSupported()).isTrue();
-        });
-        withKmipSpec(KmipSpec.UnsupportedVersion, () -> {
-            assertThat(custom.isSupported()).isFalse();
+  @Override
+  protected void assertLookupBehaviour() {
+    // TODO: Customize these assertions based on actual enum values and expected lookup behavior
+    // Lookup by name/value
+    withKmipSpec(
+        KmipSpec.UnknownVersion,
+        () -> {
+          {{ATTRIBUTE_NAME}}.Value byName =
+              {{ATTRIBUTE_NAME}}.fromName("X-Enum-Custom");
+          {{ATTRIBUTE_NAME}}.Value byVal =
+              {{ATTRIBUTE_NAME}}.fromValue(0x80000010);
+          assertThat(byName.getDescription()).isEqualTo("X-Enum-Custom");
+          assertThat(byVal.getValue()).isEqualTo(0x80000010);
         });
 
-        // Negative cases: invalid range, empty description, empty versions
-        assertThatThrownBy(() -> {{ATTRIBUTE_NAME}}.register(0x7FFFFFFF, "Bad-Range", Set.of(KmipSpec.UnknownVersion)))
-                .isInstanceOf(IllegalArgumentException.class);
-        assertThatThrownBy(() -> {{ATTRIBUTE_NAME}}.register(0x00000001, "Bad-Range", Set.of(KmipSpec.UnknownVersion)))
-                .isInstanceOf(IllegalArgumentException.class);
-        assertThatThrownBy(() -> {{ATTRIBUTE_NAME}}.register(0x80000011, "   ", Set.of(KmipSpec.UnknownVersion)))
-                .isInstanceOf(IllegalArgumentException.class);
-        assertThatThrownBy(() -> {{ATTRIBUTE_NAME}}.register(0x80000012, "X-Empty-Versions", Set.of()))
-                .isInstanceOf(IllegalArgumentException.class);
-    }
+    // Lookup by name/value with unsupported version
+    withKmipSpec(
+        KmipSpec.UnsupportedVersion,
+        () ->
+            assertThatThrownBy(
+                () -> {{ATTRIBUTE_NAME}}.fromName("X-Enum-Custom")));
+  }
+
+  @Override
+  protected void assertEnumerationRegistryBehavior() {
+    // TODO: Customize these assertions based on actual enum values and expected registry behavior
+    // Valid registration requires the 8XXXXXXX (hex) range
+    {{ATTRIBUTE_NAME}}.Value custom =
+        {{ATTRIBUTE_NAME}}.register(
+                0x80000010, "X-Enum-Custom", UNKNOWN_ONLY);
+    assertThat(custom.isCustom()).isTrue();
+    assertThat(custom.getDescription()).isEqualTo("X-Enum-Custom");
+
+    withKmipSpec(
+        KmipSpec.UnknownVersion,
+        () -> {
+          assertThat(custom.isSupported()).isTrue();
+        });
+    withKmipSpec(
+        KmipSpec.UnsupportedVersion,
+        () -> {
+          assertThat(custom.isSupported()).isFalse();
+        });
+
+    // Negative cases: invalid range, empty description, empty versions
+    assertThatThrownBy(
+            () -> {{ATTRIBUTE_NAME}}.register(
+                0x7FFFFFFF, "Bad-Range", UNKNOWN_ONLY))
+        .isInstanceOf(IllegalArgumentException.class);
+    assertThatThrownBy(
+            () -> {{ATTRIBUTE_NAME}}.register(
+                0x00000001, "Bad-Range", UNKNOWN_ONLY))
+        .isInstanceOf(IllegalArgumentException.class);
+    assertThatThrownBy(
+            () ->
+                {{ATTRIBUTE_NAME}}.register(
+                    0x80000011, "   ", UNKNOWN_ONLY))
+        .isInstanceOf(IllegalArgumentException.class);
+    assertThatThrownBy(() -> {{ATTRIBUTE_NAME}}.register(
+                0x80000012, "X-Empty-Versions", Set.of()))
+        .isInstanceOf(IllegalArgumentException.class);
+  }
 }
