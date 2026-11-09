@@ -155,13 +155,12 @@ generate_unified_deserializer() {
 
 
 # --- Entity-Specific Generator Functions ---
-
 generate_enum() {
     local TEMPLATE_DIR="${TEMPLATE_BASE_DIR}/enumeration"
     local GEN_CLASS=false GEN_JSON_SER=false GEN_JSON_DES=false GEN_XML_SER=false GEN_XML_DES=false
     local GEN_TTLV_SER=false GEN_TTLV_DES=false GEN_DOMAIN_TEST=false GEN_JSON_TEST=false GEN_XML_TEST=false
     local GEN_TTLV_TEST=false GEN_BENCHMARK=false
-    local DRY_RUN=false
+    local DRY_RUN="${DRY_RUN:-false}"
     local IF_ATTR=false
     local module="core"
     local sub_package=""
@@ -184,6 +183,7 @@ EOF
             -m|--module) module="$2"; shift; shift ;;
             -s|--sub-package) sub_package="$2"; shift; shift ;;
             --attr) IF_ATTR=true; shift ;;
+            --dry-run) DRY_RUN=true; shift ;;
             --class) GEN_CLASS=true; any_flag=true; shift ;;
             --json-ser) GEN_JSON_SER=true; any_flag=true; shift ;;
             --json-des) GEN_JSON_DES=true; any_flag=true; shift ;;
@@ -284,7 +284,7 @@ generate_datatype() {
     local GEN_CLASS=false GEN_JSON_SER=false GEN_JSON_DES=false GEN_XML_SER=false GEN_XML_DES=false
     local GEN_TTLV_SER=false GEN_TTLV_DES=false GEN_DOMAIN_TEST=false GEN_JSON_TEST=false GEN_XML_TEST=false
     local GEN_TTLV_TEST=false GEN_BENCHMARK=false
-    local DRY_RUN=false
+    local DRY_RUN="${DRY_RUN:-false}"
     local DATA_TYPE="ByteBuffer"
     local IF_ATTR=false
     local module="core"
@@ -310,6 +310,7 @@ EOF
             -s|--sub-package) sub_package="$2"; shift; shift ;;
             --attr) IF_ATTR=true; shift ;;
             --type) DATA_TYPE="$2"; shift; shift ;;
+            --dry-run) DRY_RUN=true; shift ;;
             --class) GEN_CLASS=true; any_flag=true; shift ;;
             --json-ser) GEN_JSON_SER=true; any_flag=true; shift ;;
             --json-des) GEN_JSON_DES=true; any_flag=true; shift ;;
@@ -421,7 +422,7 @@ generate_structure() {
     local GEN_CLASS=false GEN_JSON_SER=false GEN_JSON_DES=false GEN_XML_SER=false GEN_XML_DES=false
     local GEN_TTLV_SER=false GEN_TTLV_DES=false GEN_DOMAIN_TEST=false GEN_JSON_TEST=false GEN_XML_TEST=false
     local GEN_TTLV_TEST=false GEN_BENCHMARK=false
-    local DRY_RUN=false
+    local DRY_RUN="${DRY_RUN:-false}"
     local IF_ATTR=false
     local module="core"
     local sub_package=""
@@ -444,6 +445,7 @@ EOF
             -m|--module) module="$2"; shift; shift ;;
             -s|--sub-package) sub_package="$2"; shift; shift ;;
             --attr) IF_ATTR=true; shift ;;
+            --dry-run) DRY_RUN=true; shift ;;
             --class) GEN_CLASS=true; any_flag=true; shift ;;
             --json-ser) GEN_JSON_SER=true; any_flag=true; shift ;;
             --json-des) GEN_JSON_DES=true; any_flag=true; shift ;;
